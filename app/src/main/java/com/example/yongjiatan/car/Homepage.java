@@ -18,4 +18,9 @@ public class Homepage extends AppCompatActivity {
 
         startActivity(goToReservation);
     }
+    public void JumptoScanQRCode(View view)
+    {
+        Intent gotoScanQR = new Intent(this,ScanQRCode.class);
+        startActivity(gotoScanQR);
+    }
 }

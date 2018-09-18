@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectTime">
+>
 
-    <EditText
-        android:id="@+id/editText"
+
+    <TextView
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="193dp" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="281dp"
+        android:hint="Select Date"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="395dp"
+        android:layout_width="372dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="291dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="123dp" />
+</RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+

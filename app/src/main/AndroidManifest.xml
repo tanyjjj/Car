@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yongjiatan.car">
 
+    <uses-permission android:name="android.permission.CAMERA" ></uses-permission>"
+    <uses-permission android:name="android.permission.VIBRATE" ></uses-permission>"
     <uses-permission android:name="android.permission.INTERNET" ></uses-permission>"
     "
     <application
@@ -27,6 +29,9 @@
         <activity android:name=".EditProfile" />
         <activity android:name=".SelectParkingSpace" />
         <activity android:name=".ScanQRCode"></activity>
+
+        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
+
     </application>
 
 </manifest>
