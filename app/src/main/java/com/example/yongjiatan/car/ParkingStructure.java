@@ -38,6 +38,7 @@ String userid;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_structure);
         userid = getIntent().getExtras().getString("userid");
+
          spinner = (Spinner) findViewById(R.id.parkingspinner);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.parking_array, android.R.layout.simple_spinner_item);
