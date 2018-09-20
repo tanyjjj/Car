@@ -6,16 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 
 public class Reservation extends AppCompatActivity {
-
+    String userid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userid = getIntent().getExtras().getString("userid");
         setContentView(R.layout.activity_reservation);
     }
 
     public void JumpToParkingStructure(View view) {
         Intent goToParkingStructure = new Intent(this,ParkingStructure.class);
-
+        goToParkingStructure.putExtra("userid",userid);
         startActivity(goToParkingStructure);
     }
     public void JumpToSelectTime(View view) {
