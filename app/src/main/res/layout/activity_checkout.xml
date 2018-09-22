@@ -31,6 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Make Payment"
-        tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="408dp" />
+        tools:layout_editor_absoluteX="248dp"
+        tools:layout_editor_absoluteY="447dp" />
 </android.support.constraint.ConstraintLayout>

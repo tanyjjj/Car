@@ -19,9 +19,4 @@ public class Reservation extends AppCompatActivity {
         goToParkingStructure.putExtra("userid",userid);
         startActivity(goToParkingStructure);
     }
-    public void JumpToSelectTime(View view) {
-        Intent goToSelectTime = new Intent(this,SelectTime.class);
-
-        startActivity(goToSelectTime);
-    }
 }
