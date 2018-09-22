@@ -10,54 +10,45 @@
     <TextView
         android:id="@+id/selectspot"
         android:layout_width="wrap_content"
-        android:layout_height="31dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
 
-        android:layout_marginBottom="196dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Select Parking Spot"
         android:textColor="@android:color/black"
-        android:textSize="22sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selecttime"
-        app:layout_constraintVertical_bias="0.776" />
-
-    <TextView
-        android:id="@+id/selecttime"
-        android:layout_width="121dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="128dp"
-        android:layout_marginRight="128dp"
-        android:layout_marginTop="80dp"
-        android:onClick="JumpToSelectTime"
-        android:text="Select Time"
-        android:textColor="@android:color/black"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/parkingstructure" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="0.069" />
 
     <TextView
         android:id="@+id/parkingstructure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="267dp"
+        android:layout_height="111dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
 
-        android:layout_marginEnd="68dp"
-        android:layout_marginRight="68dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:onClick="JumpToParkingStructure"
-        android:text="Select Parking Structure"
+        android:text="     Select Parking Structure and Time"
         android:textColor="@android:color/black"
-        android:textSize="22sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -70,57 +61,39 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.745"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="61dp"
-        android:layout_height="57dp"
+        android:layout_width="96dp"
+        android:layout_height="90dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="48dp"
         android:onClick="JumpToParkingStructure"
         android:src="@drawable/ic_gps_fixed_black_24dp"
-        app:layout_constraintEnd_toStartOf="@+id/parkingstructure"
-        app:layout_constraintHorizontal_bias="0.656"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="61dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:onClick="JumpToSelectTime"
-        android:src="@drawable/ic_access_time_black_24dp"
-        app:layout_constraintEnd_toStartOf="@+id/selecttime"
-        app:layout_constraintHorizontal_bias="0.352"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="61dp"
-        android:layout_height="57dp"
-        android:layout_marginBottom="176dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/ic_parking"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/selectspot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintTop_toBottomOf="@+id/parkingstructure" />
 
 </android.support.constraint.ConstraintLayout>
