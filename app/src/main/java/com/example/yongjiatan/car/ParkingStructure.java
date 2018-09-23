@@ -38,7 +38,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ParkingStructure extends AppCompatActivity {
-    Spinner spinner;
+    Spinner spinner,timespinner;
+
     String userid;
     private TextView mDisplayDate;
     private static final String TAG = "ParkingStructure";
@@ -66,16 +67,19 @@ public class ParkingStructure extends AppCompatActivity {
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
- DatePickerDialog dialog = new DatePickerDialog(ParkingStructure.this,
- android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year,month,day);
-    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    dialog.show();
+
+                DatePickerDialog dialog = new DatePickerDialog(ParkingStructure.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
             }
         });
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
                 month = month + 1;
                 Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
 
@@ -84,18 +88,20 @@ public class ParkingStructure extends AppCompatActivity {
             }
         };
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinnertime);
+        timespinner = (Spinner) findViewById(R.id.spinnertime);
 
         ArrayAdapter<CharSequence> Adapter = ArrayAdapter.createFromResource(this,R.array.time, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner.setAdapter(Adapter);
+        timespinner.setAdapter(Adapter);
     }
 
     public void SubmitParking(View view) {
         String text = spinner.getSelectedItem().toString();
+        String time = timespinner.getSelectedItem().toString();
+        String datechosen = mDisplayDate.getText().toString();
         BackgroundWorkerParkingStructure backgroundWorker = new BackgroundWorkerParkingStructure(this);
-        backgroundWorker.execute(text, userid);
+        backgroundWorker.execute(text,time,datechosen, userid);
     }
 }

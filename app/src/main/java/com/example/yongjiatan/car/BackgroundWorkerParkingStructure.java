@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.example.yongjiatan.car.Homepage;
 
@@ -29,8 +30,9 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
     @Override
     protected String doInBackground(String... params) {
         String text = params[0];
-        String userid = params[1];
-
+        String time = params[1];
+        String date = params[2];
+        String userid = params[3];
         String parkingstructure_url = "http://192.168.137.1/parkingstructure.php";
 
             try {
@@ -42,6 +44,8 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("parkingstructure", "UTF-8") + "=" + URLEncoder.encode(text, "UTF-8") + "&"
+                + URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8")+ "&"
+                + URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8")+ "&"
                 + URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -73,11 +77,13 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
     }
     @Override
     protected void onPostExecute(String result) {
-        if (result.toString().equals("Insert successful")) {
-          //  Intent intent = new Intent(context, Reservation.class);
-      //      context.startActivity(intent);
-        }
-        else
+       if (result.toString().equals("Insert successful"))
+       {
+          // Intent intent = new Intent(context, Reservation.class);
+        //  context.startActivity(intent);
+            context.startActivity(new Intent(context, Homepage.class));
+       }
+      else
         {
             alertDialog.setMessage(result);
             alertDialog.show();

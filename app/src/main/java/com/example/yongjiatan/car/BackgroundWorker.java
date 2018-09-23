@@ -125,7 +125,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
          Intent intent = new Intent (context, Homepage.class);
          intent.putExtra("userid", uid);
          context.startActivity(intent);
-     } else if  (result.toString().equals("Registration successful.Thank you for registering")){
+     } else if  (result.toString().equals("Registration successful.Thank you for registering"))
+     {
          alertDialog.setMessage(result);
          alertDialog.show();
          Intent intent = new Intent (context, Login.class);
