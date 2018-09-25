@@ -39,7 +39,7 @@ import java.util.Calendar;
 
 public class ParkingStructure extends AppCompatActivity {
     Spinner spinner,timespinner;
-
+    String storedate;
     String userid;
     private TextView mDisplayDate;
     private static final String TAG = "ParkingStructure";
@@ -81,7 +81,13 @@ public class ParkingStructure extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
                 month = month + 1;
-                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+                if(month <10){
+                    storedate = year + "-0" + month + "-" + day;
+                } else {
+                    storedate = year + "-" + month + "-" + day;
+                }
+
+                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "-" + day + "-" + year);
 
                 String date = month + "/" + day + "/" + year;
                 mDisplayDate.setText(date);
@@ -100,8 +106,8 @@ public class ParkingStructure extends AppCompatActivity {
     public void SubmitParking(View view) {
         String text = spinner.getSelectedItem().toString();
         String time = timespinner.getSelectedItem().toString();
-        String datechosen = mDisplayDate.getText().toString();
+
         BackgroundWorkerParkingStructure backgroundWorker = new BackgroundWorkerParkingStructure(this);
-        backgroundWorker.execute(text,time,datechosen, userid);
+        backgroundWorker.execute(text,time,storedate, userid);
     }
 }

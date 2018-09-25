@@ -79,9 +79,7 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
     protected void onPostExecute(String result) {
        if (result.toString().equals("Insert successful"))
        {
-          // Intent intent = new Intent(context, Reservation.class);
-        //  context.startActivity(intent);
-            context.startActivity(new Intent(context, Homepage.class));
+            context.startActivity(new Intent(context, SelectParkingSpace.class));
        }
       else
         {

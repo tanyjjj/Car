@@ -2,8 +2,10 @@ package com.example.yongjiatan.car;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class RegistrationPage extends AppCompatActivity {
@@ -21,7 +23,6 @@ public class RegistrationPage extends AppCompatActivity {
         contactNo = (EditText) findViewById(R.id.Econtactno);
         dateOfBirth = (EditText) findViewById(R.id.Edate);
     }
-
     public void OnRegister(View view) {
         String  RUserid = userid.getText().toString();
         String RPassword = password.getText().toString();

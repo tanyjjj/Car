@@ -128,24 +128,24 @@
         app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
 
     <TextView
-        android:id="@+id/textView8"
-        android:layout_width="194dp"
-        android:layout_height="73dp"
+        android:id="@+id/scanText"
+        android:layout_width="202dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:onClick="JumptoScanQRCode"
         android:text="    Scan QR Code"
         android:textColor="@android:color/black"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.284"
+        app:layout_constraintHorizontal_bias="0.297"
         app:layout_constraintStart_toEndOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintVertical_bias="0.346" />
+
 </android.support.constraint.ConstraintLayout>
