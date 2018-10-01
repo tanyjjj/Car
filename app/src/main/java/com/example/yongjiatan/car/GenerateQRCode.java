@@ -52,21 +52,24 @@ public class GenerateQRCode extends AppCompatActivity {
             //trigger when button clicked
             @Override
             public void onClick(View view) {
-                //put the string result here
-                text2Qr = gen_btn.toString().trim();
-                //put backgroundworker
+                BackgroundRun backgroundRun = new BackgroundRun();
+                backgroundRun.execute(userid);
 
-                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-                try {
-                    BitMatrix bitMatrix = multiFormatWriter.encode(text2Qr, BarcodeFormat.QR_CODE, 200, 200);
-                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                    Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-                    image.setImageBitmap(bitmap);
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
             }
         });
+    }
+
+    public void generateQR(String result) {
+
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(result, BarcodeFormat.QR_CODE, 200, 200);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            image.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
     }
 
     class BackgroundRun extends AsyncTask<String, Void, String> {
@@ -74,7 +77,7 @@ public class GenerateQRCode extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            userid = params[1];
+            userid = params[0];
             String retrieve_url = "http://192.168.137.1/getdata.php";
 
             try {
@@ -121,7 +124,10 @@ public class GenerateQRCode extends AppCompatActivity {
                DATE = obj.getString("date");
                TIME = obj.getString("time");
                LOCATION = obj.getString("parkingstructure");
-                data = "Date: "+DATE+"\n Time= "+ TIME +"\n Location "+ LOCATION;;
+
+               data = "Date: "+DATE+"\n Time= "+ TIME +"\n Location "+ LOCATION;
+
+               generateQR(data);
            } catch (JSONException e) {e.printStackTrace();}
 
            }

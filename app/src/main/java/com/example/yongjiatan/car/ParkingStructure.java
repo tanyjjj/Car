@@ -118,3 +118,8 @@ public class ParkingStructure extends AppCompatActivity {
         backgroundWorker.execute(text,time,storedate, userid);
     }
 }
+
+
+
+
+
