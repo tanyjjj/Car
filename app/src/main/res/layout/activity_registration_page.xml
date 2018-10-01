@@ -13,12 +13,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="44dp"
         android:text="Registration"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
         android:layout_height="37dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="User ID:"
         android:inputType="text|textPersonName"
@@ -126,15 +126,22 @@
 
     <Button
         android:id="@+id/registrationsubmit"
-        android:layout_width="132dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="116dp"
-        android:layout_marginEnd="60dp"
+        android:layout_width="100dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="114dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginLeft="252dp"
+        android:layout_marginRight="59dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="88dp"
         android:onClick="OnRegister"
         android:text="Submit"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Eemail" />
 
 </android.support.constraint.ConstraintLayout>

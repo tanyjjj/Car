@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
+import android.widget.TextView;
 
 
 public class Login extends AppCompatActivity {
@@ -27,6 +27,7 @@ public class Login extends AppCompatActivity {
         String type ="login";
         BackgroundWorker backgroundWorker = new BackgroundWorker(this);
         backgroundWorker.execute(type,useridlogin,passwordlogin);
+
     }
 
     public void JumptoRegister(View view)

@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,16 +35,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class ParkingStructure extends AppCompatActivity {
     Spinner spinner,timespinner;
     String storedate;
     String userid;
+
     private TextView mDisplayDate;
     private static final String TAG = "ParkingStructure";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +64,7 @@ public class ParkingStructure extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
 
+
         mDisplayDate = (TextView) findViewById(R.id.tvDate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +78,7 @@ public class ParkingStructure extends AppCompatActivity {
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
-
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis());
             }
         });
 
@@ -86,6 +92,7 @@ public class ParkingStructure extends AppCompatActivity {
                 } else {
                     storedate = year + "-" + month + "-" + day;
                 }
+
 
                 Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "-" + day + "-" + year);
 

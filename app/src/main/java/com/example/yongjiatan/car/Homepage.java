@@ -61,4 +61,9 @@ public class Homepage extends AppCompatActivity {
         goToReservation.putExtra("userid", userid);
         startActivity(goToReservation);
     }
+    public void JumpToRetrieve(View view) {
+        Intent goToRetrieve = new Intent(this, GenerateQRCode.class);
+        goToRetrieve.putExtra("userid", userid);
+        startActivity(goToRetrieve);
+    }
 }
