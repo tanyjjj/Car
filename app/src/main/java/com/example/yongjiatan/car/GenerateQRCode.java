@@ -2,15 +2,19 @@ package com.example.yongjiatan.car;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -18,6 +22,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,16 +43,20 @@ public class GenerateQRCode extends AppCompatActivity {
     Context context;
     String userid;
     EditText text;
-    Button gen_btn;
     ImageView image;
-    String text2Qr;
-    String data = "";
+
+    //temp
+    TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qrcode);
-           image = (ImageView) findViewById(R.id.image);
-           new BackgroundRun().execute();
+        userid = getIntent().getExtras().getString("userid");
+        image = (ImageView) findViewById(R.id.image);
+        Button gen_btn = (Button) findViewById(R.id.gen_btn);
+//temp
+        tv=(TextView)findViewById(R.id.display);
+
         gen_btn.setOnClickListener(new View.OnClickListener() {
             //trigger when button clicked
             @Override
@@ -55,8 +64,12 @@ public class GenerateQRCode extends AppCompatActivity {
                 BackgroundRun backgroundRun = new BackgroundRun();
                 backgroundRun.execute(userid);
 
+                //temp
+                tv.setText( "Date: "+DATE+"\n Time= "+ TIME +"\n Location "+ LOCATION);
+
             }
         });
+
     }
 
     public void generateQR(String result) {
@@ -96,16 +109,18 @@ public class GenerateQRCode extends AppCompatActivity {
                 outputStream.close();
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                StringBuilder sb = new StringBuilder();
                 String result = "";
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
+                    //result += line;
+                    sb.append(line + "\n");
                 }
                 bufferedReader.close();
                 ;
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return result;
+                return sb.toString();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -119,34 +134,25 @@ public class GenerateQRCode extends AppCompatActivity {
         protected void onPostExecute(String result)  {
            try {
 
-               JSONObject root = new JSONObject(result);
-               JSONObject obj = root.getJSONObject("");
-               DATE = obj.getString("date");
-               TIME = obj.getString("time");
-               LOCATION = obj.getString("parkingstructure");
+               //JSONObject jsonObj = new JSONObject(result);
+               JSONArray reserve = new JSONArray(result);
+               JSONObject c = null;
 
-               data = "Date: "+DATE+"\n Time= "+ TIME +"\n Location "+ LOCATION;
+               for (int i =0;i < reserve.length();i++){
+                   c = reserve.getJSONObject(i);
+                   DATE = c.getString("date");
+                   TIME = c.getString("time");
+                   LOCATION = c.getString("parkingstructure");
+                   String data = "Date: "+DATE+"\n Time= "+ TIME +"\n Location "+ LOCATION;
+                   Toast.makeText(getApplicationContext(),DATE + TIME + LOCATION, Toast.LENGTH_SHORT).show();
+                   generateQR(data);
+               }
 
-               generateQR(data);
            } catch (JSONException e) {e.printStackTrace();}
 
            }
-         /**  JSONObject obj = new JSONObject(result);
-            //  JSONObject obj = root.getJSONObject("");
-            DATE = obj.getString("parkingstructure");
-            TIME = obj.getString("time");
-            LOCATION = obj.getString("date");
-**/
-        }
-        // private void loadIntoTextView(String json) throws JSONException {
-        //   JSONObject jsonObject = new JSONObject(json);
-
-        //   JSONObject obj = jsonObject.getJSONObject();
-        // DATE = obj.getString("parkingstructure");
-        // TIME = obj.getString("time");
-        //  LOCATION  = obj.getString("date");
-        //make it become into result,3 in result
     }
+}
 
     //context.name
 

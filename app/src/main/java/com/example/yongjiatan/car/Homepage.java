@@ -45,8 +45,8 @@ public class Homepage extends AppCompatActivity {
             }
             else {
                 Toast.makeText(this, result.getContents(),Toast.LENGTH_LONG).show();
-                Intent gotoViewReservation = new Intent(this,ViewReservation.class);
-                startActivity(gotoViewReservation);
+                Intent gotoGenerateQR = new Intent(this,GenerateQRCode.class);
+                startActivity(gotoGenerateQR);
             }
         }
         else {
@@ -61,9 +61,9 @@ public class Homepage extends AppCompatActivity {
         goToReservation.putExtra("userid", userid);
         startActivity(goToReservation);
     }
-    public void JumpToRetrieve(View view) {
-        Intent goToRetrieve = new Intent(this, GenerateQRCode.class);
-        goToRetrieve.putExtra("userid", userid);
-        startActivity(goToRetrieve);
+    public void JumpToViewReservation(View view) {
+        Intent goToView = new Intent(this, GenerateQRCode.class);
+        goToView.putExtra("userid", userid);
+        startActivity(goToView);
     }
 }

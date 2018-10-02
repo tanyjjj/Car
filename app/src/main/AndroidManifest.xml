@@ -26,7 +26,6 @@
         <activity android:name=".Reservation" />
         <activity android:name=".ParkingStructure" />
         <activity android:name=".Checkout" />
-        <activity android:name=".ViewReservation" />
         <activity android:name=".EditProfile" />
         <activity android:name=".SelectParkingSpace" />
 
