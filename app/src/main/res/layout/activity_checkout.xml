@@ -7,30 +7,61 @@
     tools:context=".Checkout">
 
     <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/time"
+        android:layout_width="233dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginRight="129dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Total Time:"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="167dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/fare"
         android:layout_width="226dp"
-        android:layout_height="55dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="118dp"
+        android:layout_marginRight="118dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Total parking fare:"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="269dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/checkout_Btn"
+        android:layout_width="121dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="204dp"
+        android:layout_marginLeft="204dp"
+        android:layout_marginTop="117dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginRight="59dp"
+        android:layout_marginBottom="127dp"
+        android:text="Check Our"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fare"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make Payment"
-        tools:layout_editor_absoluteX="248dp"
-        tools:layout_editor_absoluteY="447dp" />
+        android:text="TextView"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="331dp" />
 </android.support.constraint.ConstraintLayout>

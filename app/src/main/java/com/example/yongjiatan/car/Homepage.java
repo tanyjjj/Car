@@ -9,12 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class Homepage extends AppCompatActivity {
     String userid;
+    Calendar calender;
+    SimpleDateFormat simpleDateFormat;
+    String Date;
+    TextView Text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +27,7 @@ public class Homepage extends AppCompatActivity {
         userid = getIntent().getExtras().getString("userid");
         final TextView scan = (TextView) findViewById(R.id.scanText);
         final Activity activity = this;
-       scan.setOnClickListener(new View.OnClickListener() {
+        scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 IntentIntegrator integrator = new IntentIntegrator(activity);
@@ -34,26 +39,38 @@ public class Homepage extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+        Text = (TextView) findViewById(R.id.checkoutText);
+        Text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calender = Calendar.getInstance();
+                simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                Date = simpleDateFormat.format(calender.getTime());
+            //   Text.setText(Date);
+                Intent intent = new Intent (Homepage.this,Checkout.class);
+               intent.putExtra("userid", userid);
+                intent.putExtra("checkout", Date);
+                startActivity(intent);
+            }
+        });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null){
-            if(result.getContents()==null){
+        if (result != null) {
+            if (result.getContents() == null) {
                 Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
-            }
-            else {
-                Toast.makeText(this, result.getContents(),Toast.LENGTH_LONG).show();
-                Intent gotoGenerateQR = new Intent(this,GenerateQRCode.class);
+            } else {
+                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+                Intent gotoGenerateQR = new Intent(this, GenerateQRCode.class);
                 startActivity(gotoGenerateQR);
             }
-        }
-        else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
 
 
     public void JumpToReservationPage(View view) {
@@ -61,9 +78,18 @@ public class Homepage extends AppCompatActivity {
         goToReservation.putExtra("userid", userid);
         startActivity(goToReservation);
     }
+
     public void JumpToViewReservation(View view) {
         Intent goToView = new Intent(this, GenerateQRCode.class);
         goToView.putExtra("userid", userid);
         startActivity(goToView);
     }
+
+    public void JumpToUpdateProfile(View view) {
+        Intent goToUpdate = new Intent(this, EditProfile.class);
+        goToUpdate.putExtra("userid", userid);
+        startActivity(goToUpdate);
+    }
+
 }
+

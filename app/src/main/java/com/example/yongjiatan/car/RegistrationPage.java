@@ -2,10 +2,8 @@ package com.example.yongjiatan.car;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 
 public class RegistrationPage extends AppCompatActivity {
@@ -32,6 +30,6 @@ public class RegistrationPage extends AppCompatActivity {
         String RDateofbirth = dateOfBirth.getText().toString();
         String type = "register";
         BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-        backgroundWorker.execute(type, RUserid, RPassword, RName, REmail, RContactno, RDateofbirth);
+        backgroundWorker.execute(type, RUserid, RPassword, RName,RContactno, RDateofbirth, REmail );
     }
 }

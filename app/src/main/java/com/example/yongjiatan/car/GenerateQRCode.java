@@ -40,7 +40,7 @@ import java.net.URLEncoder;
 
 public class GenerateQRCode extends AppCompatActivity {
     String DATE, TIME, LOCATION;
-    Context context;
+
     String userid;
     EditText text;
     ImageView image;
@@ -64,8 +64,7 @@ public class GenerateQRCode extends AppCompatActivity {
                 BackgroundRun backgroundRun = new BackgroundRun();
                 backgroundRun.execute(userid);
 
-                //temp
-                tv.setText( "Date: "+DATE+"\n Time= "+ TIME +"\n Location "+ LOCATION);
+
 
             }
         });
@@ -83,6 +82,10 @@ public class GenerateQRCode extends AppCompatActivity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+
+        //temp
+        tv.setText( "Date: "+DATE+"\n Time: "+ TIME +"\n Location: "+ LOCATION);
+
     }
 
     class BackgroundRun extends AsyncTask<String, Void, String> {
@@ -113,11 +116,10 @@ public class GenerateQRCode extends AppCompatActivity {
                 String result = "";
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {
-                    //result += line;
+
                     sb.append(line + "\n");
                 }
                 bufferedReader.close();
-                ;
                 inputStream.close();
                 httpURLConnection.disconnect();
                 return sb.toString();
@@ -134,7 +136,6 @@ public class GenerateQRCode extends AppCompatActivity {
         protected void onPostExecute(String result)  {
            try {
 
-               //JSONObject jsonObj = new JSONObject(result);
                JSONArray reserve = new JSONArray(result);
                JSONObject c = null;
 
@@ -143,9 +144,10 @@ public class GenerateQRCode extends AppCompatActivity {
                    DATE = c.getString("date");
                    TIME = c.getString("time");
                    LOCATION = c.getString("parkingstructure");
-                   String data = "Date: "+DATE+"\n Time= "+ TIME +"\n Location "+ LOCATION;
-                   Toast.makeText(getApplicationContext(),DATE + TIME + LOCATION, Toast.LENGTH_SHORT).show();
+                   String data = "Date: "+DATE+"\n Time: "+ TIME +"\n Location: "+ LOCATION;
+                //   Toast.makeText(getApplicationContext(),DATE + TIME + LOCATION, Toast.LENGTH_SHORT).show();
                    generateQR(data);
+
                }
 
            } catch (JSONException e) {e.printStackTrace();}
@@ -154,5 +156,5 @@ public class GenerateQRCode extends AppCompatActivity {
     }
 }
 
-    //context.name
+
 
