@@ -15,16 +15,19 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class Homepage extends AppCompatActivity {
-    String userid;
+    String userid,rid,time;
     Calendar calender;
     SimpleDateFormat simpleDateFormat;
-    String Date;
+    String timeout;
     TextView Text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         userid = getIntent().getExtras().getString("userid");
+        rid = getIntent().getExtras().getString("rid");
+        time = getIntent().getExtras().getString("time");
+
         final TextView scan = (TextView) findViewById(R.id.scanText);
         final Activity activity = this;
         scan.setOnClickListener(new View.OnClickListener() {
@@ -45,11 +48,11 @@ public class Homepage extends AppCompatActivity {
             public void onClick(View view) {
                 calender = Calendar.getInstance();
                 simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                Date = simpleDateFormat.format(calender.getTime());
-            //   Text.setText(Date);
+                timeout = simpleDateFormat.format(calender.getTime());
                 Intent intent = new Intent (Homepage.this,Checkout.class);
-               intent.putExtra("userid", userid);
-                intent.putExtra("checkout", Date);
+                intent.putExtra("timeout", timeout);
+                intent.putExtra("rid", rid);
+                intent.putExtra("time", time);
                 startActivity(intent);
             }
         });

@@ -134,27 +134,24 @@ public class GenerateQRCode extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result)  {
-           try {
+            try {
 
-               JSONArray reserve = new JSONArray(result);
-               JSONObject c = null;
+                JSONArray reserve = new JSONArray(result);
+                JSONObject c = null;
 
-               for (int i =0;i < reserve.length();i++){
-                   c = reserve.getJSONObject(i);
-                   DATE = c.getString("date");
-                   TIME = c.getString("time");
-                   LOCATION = c.getString("parkingstructure");
-                   String data = "Date: "+DATE+"\n Time: "+ TIME +"\n Location: "+ LOCATION;
-                //   Toast.makeText(getApplicationContext(),DATE + TIME + LOCATION, Toast.LENGTH_SHORT).show();
-                   generateQR(data);
+                for (int i =0;i < reserve.length();i++){
+                    c = reserve.getJSONObject(i);
+                    DATE = c.getString("date");
+                    TIME = c.getString("time");
+                    LOCATION = c.getString("parkingstructure");
+                    String data = "Date: "+DATE+"\n Time: "+ TIME +"\n Location: "+ LOCATION;
+                    //   Toast.makeText(getApplicationContext(),DATE + TIME + LOCATION, Toast.LENGTH_SHORT).show();
+                    generateQR(data);
 
-               }
+                }
 
-           } catch (JSONException e) {e.printStackTrace();}
+            } catch (JSONException e) {e.printStackTrace();}
 
-           }
+        }
     }
 }
-
-
-

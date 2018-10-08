@@ -4,24 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Checkout">
-
-    <EditText
-        android:id="@+id/time"
-        android:layout_width="233dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="129dp"
-        android:layout_marginRight="129dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Total Time:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".Checkout"
+    tools:layout_editor_absoluteY="25dp">
 
     <EditText
         android:id="@+id/fare"
@@ -29,15 +13,16 @@
         android:layout_height="57dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="118dp"
         android:layout_marginRight="118dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Total parking fare:"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time" />
+        app:layout_constraintTop_toBottomOf="@+id/displaytext" />
 
     <Button
         android:id="@+id/checkout_Btn"
@@ -45,23 +30,67 @@
         android:layout_height="63dp"
         android:layout_marginStart="204dp"
         android:layout_marginLeft="204dp"
-        android:layout_marginTop="117dp"
+        android:layout_marginTop="42dp"
         android:layout_marginEnd="59dp"
         android:layout_marginRight="59dp"
         android:layout_marginBottom="127dp"
-        android:text="Check Our"
+        android:onClick="SubmitParking"
+        android:text="Check Out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fare"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/displaytext"
+        android:layout_width="297dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginLeft="51dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginRight="106dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="76dp"
-        tools:layout_editor_absoluteY="331dp" />
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displaycheckin" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="217dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginRight="97dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/displaycheckin"
+        android:layout_width="291dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginLeft="51dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="111dp"
+        android:layout_marginRight="111dp"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 </android.support.constraint.ConstraintLayout>

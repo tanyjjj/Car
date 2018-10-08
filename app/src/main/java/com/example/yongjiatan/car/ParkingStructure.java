@@ -43,7 +43,7 @@ import java.util.GregorianCalendar;
 public class ParkingStructure extends AppCompatActivity {
     Spinner spinner,timespinner;
     String storedate;
-    String userid;
+    String userid,time;
 
     private TextView mDisplayDate;
     private static final String TAG = "ParkingStructure";
@@ -112,8 +112,7 @@ public class ParkingStructure extends AppCompatActivity {
 
     public void SubmitParking(View view) {
         String text = spinner.getSelectedItem().toString();
-        String time = timespinner.getSelectedItem().toString();
-
+       time = timespinner.getSelectedItem().toString();
         BackgroundWorkerParkingStructure backgroundWorker = new BackgroundWorkerParkingStructure(this);
         backgroundWorker.execute(text,time,storedate, userid);
     }
