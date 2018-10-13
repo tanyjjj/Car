@@ -15,7 +15,8 @@ public class Reservation extends AppCompatActivity {
     }
 
     public void JumpToParkingStructure(View view) {
-        Intent goToParkingStructure = new Intent(this, ParkingStructure.class);
+        Intent goToParkingStructure;
+        goToParkingStructure = new Intent(this, ParkingStructure.class);
         goToParkingStructure.putExtra("userid", userid);
         startActivity(goToParkingStructure);
 

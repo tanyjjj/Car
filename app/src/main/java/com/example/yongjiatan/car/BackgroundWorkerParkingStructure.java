@@ -29,9 +29,9 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
     }
     @Override
     protected String doInBackground(String... params) {
-      String text = params[0];
+        String text = params[0];
         time = params[1];
-      String date = params[2];
+        String date = params[2];
         userid = params[3];
 
         String parkingstructure_url = "http://192.168.137.1/parkingstructure.php";
@@ -55,13 +55,11 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
             bufferedWriter.close();
             outputStream.close();
             InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-            StringBuilder sb = new StringBuilder();
-            String result = "";
-            String line = "";
-            while ((line = bufferedReader.readLine()) != null) {
-
-                sb.append(line + "\n");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+            String result="";
+            String line="";
+            while((line = bufferedReader.readLine())!= null) {
+                result += line;
             }
             bufferedReader.close();
             inputStream.close();
@@ -86,12 +84,13 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
         alertDialog.setMessage(result);
         alertDialog.show();
         super.onPostExecute(result);
-    /**    Intent intent = new Intent (context, SelectParkingSpace.class);
+        // Intent intent = new Intent (context, SelectParkingSpace.class);
+        Intent intent = new Intent (context, SelectParkingSpace.class);
         intent.putExtra("rid", result);
         intent.putExtra("time", time);
         intent.putExtra("userid",userid);
         context.startActivity(intent);
-**/
+
     }
     @Override
     protected void onProgressUpdate(Void... values){

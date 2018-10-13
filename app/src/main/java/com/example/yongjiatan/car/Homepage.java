@@ -79,6 +79,7 @@ public class Homepage extends AppCompatActivity {
 
 
     public void JumpToReservationPage(View view) {
+
         Intent goToReservation = new Intent(this, Reservation.class);
         goToReservation.putExtra("userid", userid);
         startActivity(goToReservation);
