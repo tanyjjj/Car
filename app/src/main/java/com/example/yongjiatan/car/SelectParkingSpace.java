@@ -11,12 +11,12 @@ import android.widget.Toast;
 public class SelectParkingSpace extends AppCompatActivity {
     Button carpark1,carpark2;
     int count = 0;
-    String rid,time;
+    String rid,time,userid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_parking_space);
-
+        userid = getIntent().getExtras().getString("userid");
      rid = getIntent().getExtras().getString("rid");
         time = getIntent().getExtras().getString("time");
 
@@ -43,7 +43,9 @@ public class SelectParkingSpace extends AppCompatActivity {
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toastMessage("Clicked Level 1 Car Park");
+            //    toastMessage("Clicked Level 1 Car Park");
+                Toast.makeText(getApplicationContext(), "Your BMI is " + time,  Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -59,6 +61,7 @@ public class SelectParkingSpace extends AppCompatActivity {
                 Intent intent = new Intent (SelectParkingSpace.this,Homepage.class);
                 intent.putExtra("rid", rid);
                 intent.putExtra("time", time);
+                intent.putExtra("userid", userid);
                 startActivity(intent);
             }
         });

@@ -138,12 +138,12 @@ public class BackgroundCheckOut extends AsyncTask<String,Void,String> {
             alertDialog.show();
             Intent intent = new Intent (context, Login.class);
             context.startActivity(intent);
-        }
+        } **/
         else
         {
             alertDialog.setMessage(result);
             alertDialog.show();
-        } **/
+        }
     }
 
     @Override

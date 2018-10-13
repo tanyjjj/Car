@@ -49,7 +49,8 @@ public class Homepage extends AppCompatActivity {
                 calender = Calendar.getInstance();
                 simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                 timeout = simpleDateFormat.format(calender.getTime());
-                Intent intent = new Intent (Homepage.this,Checkout.class);
+
+               Intent intent = new Intent (Homepage.this,Checkout.class);
                 intent.putExtra("timeout", timeout);
                 intent.putExtra("rid", rid);
                 intent.putExtra("time", time);
@@ -59,7 +60,7 @@ public class Homepage extends AppCompatActivity {
     }
 
 
-    @Override
+   @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
@@ -68,6 +69,7 @@ public class Homepage extends AppCompatActivity {
             } else {
                 Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
                 Intent gotoGenerateQR = new Intent(this, GenerateQRCode.class);
+
                 startActivity(gotoGenerateQR);
             }
         } else {
@@ -83,8 +85,10 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void JumpToViewReservation(View view) {
-        Intent goToView = new Intent(this, GenerateQRCode.class);
+
+      Intent goToView = new Intent(this, GenerateQRCode.class);
         goToView.putExtra("userid", userid);
+        goToView.putExtra("rid", rid);
         startActivity(goToView);
     }
 

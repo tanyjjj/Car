@@ -21,14 +21,14 @@ import java.net.URLEncoder;
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
-    String uid;
+    String userid;
     BackgroundWorker(Context ctx){
         context = ctx;
     }
     @Override
     protected String doInBackground(String... params){
         String type = params[0];
-        uid = params[1];
+
         String login_url = "http://192.168.137.1/login.php";
         String register_url = "http://192.168.137.1/register.php";
         if(type.equals("login")) {
@@ -66,7 +66,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             }
         }else if (type.equals("register")) {
             try {
-                String userid = params[1];
+               userid = params[1];
                 String password = params[2];
                 String name = params[3];
                 String contactno = params[4];
@@ -124,7 +124,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
          alertDialog.show();
 
          Intent intent = new Intent (context, Homepage.class);
-         intent.putExtra("userid", uid);
+         intent.putExtra("userid", userid);
          context.startActivity(intent);
 
      } else if  (result.toString().equals("Registration successful.Thank you for registering"))

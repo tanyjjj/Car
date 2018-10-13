@@ -37,43 +37,61 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class GenerateQRCode extends AppCompatActivity {
     String DATE, TIME, LOCATION;
-
-    String userid;
+    String checkin;
+    String userid, rid;
     EditText text;
     ImageView image;
-
+    Calendar calender;
+    SimpleDateFormat simpleDateFormat;
     //temp
     TextView tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qrcode);
         userid = getIntent().getExtras().getString("userid");
+        rid = getIntent().getExtras().getString("rid");
         image = (ImageView) findViewById(R.id.image);
         Button gen_btn = (Button) findViewById(R.id.gen_btn);
 //temp
-        tv=(TextView)findViewById(R.id.display);
+        tv = (TextView) findViewById(R.id.display);
 
         gen_btn.setOnClickListener(new View.OnClickListener() {
             //trigger when button clicked
             @Override
             public void onClick(View view) {
-                BackgroundRun backgroundRun = new BackgroundRun();
-                backgroundRun.execute(userid);
+                calender = Calendar.getInstance();
+                simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                checkin = simpleDateFormat.format(calender.getTime());
 
-
+               BackgroundRun runner = new BackgroundRun();
+               runner.execute(userid, checkin, rid);
 
             }
         });
 
+        Button okay = (Button) findViewById(R.id.checkin_Btn);
+        okay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GenerateQRCode.this, Homepage.class);
+                    intent.putExtra("checkin", checkin);
+                    intent.putExtra("rid", rid);
+
+                startActivity(intent);
+            }
+        });
     }
 
     public void generateQR(String result) {
 
-        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+      MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(result, BarcodeFormat.QR_CODE, 200, 200);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
@@ -84,16 +102,19 @@ public class GenerateQRCode extends AppCompatActivity {
         }
 
         //temp
-        tv.setText( "Date: "+DATE+"\n Time: "+ TIME +"\n Location: "+ LOCATION);
+        tv.setText("Date: " + DATE + "\n Time: " + TIME + "\n Location: " + LOCATION);
 
     }
 
-    class BackgroundRun extends AsyncTask<String, Void, String> {
+    private class BackgroundRun extends AsyncTask<String, Void, String> {
+        AlertDialog alertDialog;
 
         @Override
         protected String doInBackground(String... params) {
 
             userid = params[0];
+            checkin = params[1];
+            rid = params[2];
             String retrieve_url = "http://192.168.137.1/getdata.php";
 
             try {
@@ -105,7 +126,9 @@ public class GenerateQRCode extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8");
+                String post_data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8") + "&"
+                        + URLEncoder.encode("checkin", "UTF-8") + "=" + URLEncoder.encode(checkin, "UTF-8") + "&"
+                        + URLEncoder.encode("rid", "UTF-8") + "=" + URLEncoder.encode(rid, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -133,25 +156,28 @@ public class GenerateQRCode extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result)  {
+        protected void onPostExecute(String result) {
             try {
 
-                JSONArray reserve = new JSONArray(result);
-                JSONObject c = null;
+               JSONObject c = new JSONObject(result);
 
-                for (int i =0;i < reserve.length();i++){
-                    c = reserve.getJSONObject(i);
+
+                for (int i = 0; i < c.length(); i++) {
                     DATE = c.getString("date");
                     TIME = c.getString("time");
                     LOCATION = c.getString("parkingstructure");
-                    String data = "Date: "+DATE+"\n Time: "+ TIME +"\n Location: "+ LOCATION;
+                   String data = "Date: " + DATE + "\n Time: " + TIME + "\n Location: " + LOCATION;
                     //   Toast.makeText(getApplicationContext(),DATE + TIME + LOCATION, Toast.LENGTH_SHORT).show();
                     generateQR(data);
 
+
                 }
 
-            } catch (JSONException e) {e.printStackTrace();}
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
         }
     }
 }
+

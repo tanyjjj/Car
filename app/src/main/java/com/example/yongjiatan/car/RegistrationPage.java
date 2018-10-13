@@ -4,6 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class RegistrationPage extends AppCompatActivity {
@@ -20,8 +24,27 @@ public class RegistrationPage extends AppCompatActivity {
         email = (EditText) findViewById(R.id.Eemail);
         contactNo = (EditText) findViewById(R.id.Econtactno);
         dateOfBirth = (EditText) findViewById(R.id.Edate);
+
     }
+
     public void OnRegister(View view) {
+        if(!validateUserID(userid.getText().toString())) {
+            userid.setError("UserID length must be minimum character 5 ");
+            userid.requestFocus();
+            }
+        //password.getText().toString().length()<8 &&
+        if(!validatePassword(password.getText().toString())||password.getText().toString().length()<8){
+           password.setError("Password must be at least 8 characters,one number,one special character and upper case letter ");
+           password.requestFocus();
+        }else{
+           Toast.makeText(RegistrationPage.this,"Valid",Toast.LENGTH_LONG).show();
+
+        }
+        if(!validateEmail(email.getText().toString())) {
+            email.setError("Email must have valid email format.Please try again!");
+            email.requestFocus();
+        }
+
         String  RUserid = userid.getText().toString();
         String RPassword = password.getText().toString();
         String RName = name.getText().toString();
@@ -32,4 +55,35 @@ public class RegistrationPage extends AppCompatActivity {
         BackgroundWorker backgroundWorker = new BackgroundWorker(this);
         backgroundWorker.execute(type, RUserid, RPassword, RName,RContactno, RDateofbirth, REmail );
     }
+    protected boolean validatePassword(String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
+    }
+
+
+   protected boolean validateEmail(String email) {
+        String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+    protected boolean validateUserID(String userid) {
+            if(userid!=null && userid.length()>5) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
 }

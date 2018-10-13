@@ -15,10 +15,10 @@ import java.util.Date;
 public class Checkout extends AppCompatActivity {
     private TextView display, displayIn;
     String rid, timeout, time;
-    String resulttime;
+  //  String resulttime;
     Calendar calender;
-    double costPerHour =3.00;
-    double totalParkingFee;
+   // double costPerHour =3.00;
+  //  double totalParkingFee;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class Checkout extends AppCompatActivity {
         displayIn = (TextView) findViewById(R.id.displaycheckin);
         displayIn.setText("Check In Time:" + time);
 
-            calender = Calendar.getInstance();
+        //    calender = Calendar.getInstance();
       //  resulttime = timeout-time;
         }
 
@@ -40,7 +40,8 @@ public class Checkout extends AppCompatActivity {
     public void SubmitParking(View view) {
         BackgroundCheckOut backgroundWorker = new BackgroundCheckOut(this);
         backgroundWorker.execute(timeout, rid);
-
+        Intent goToView = new Intent(this, Homepage.class);
+        startActivity(goToView);
 //totalParkingFee = costPerHour ×
     }
 
