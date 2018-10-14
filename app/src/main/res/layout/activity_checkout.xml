@@ -93,4 +93,12 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+    <TextView
+        android:id="@+id/testing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="testing"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="498dp" />
 </android.support.constraint.ConstraintLayout>

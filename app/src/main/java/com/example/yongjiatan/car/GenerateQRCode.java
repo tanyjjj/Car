@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -42,13 +45,13 @@ import java.util.Calendar;
 
 public class GenerateQRCode extends AppCompatActivity {
     String DATE, TIME, LOCATION;
-    String checkin;
+    String checkin,time;
     String userid, rid;
     EditText text;
     ImageView image;
     Calendar calender;
     SimpleDateFormat simpleDateFormat;
-    //temp
+    Date reservetime,currenttime;
     TextView tv;
 
     @Override
@@ -57,6 +60,8 @@ public class GenerateQRCode extends AppCompatActivity {
         setContentView(R.layout.activity_generate_qrcode);
         userid = getIntent().getExtras().getString("userid");
         rid = getIntent().getExtras().getString("rid");
+        time = getIntent().getExtras().getString("time");
+
         image = (ImageView) findViewById(R.id.image);
         Button gen_btn = (Button) findViewById(R.id.gen_btn);
 //temp
@@ -71,7 +76,7 @@ public class GenerateQRCode extends AppCompatActivity {
                 checkin = simpleDateFormat.format(calender.getTime());
 
                BackgroundRun runner = new BackgroundRun();
-               runner.execute(userid, checkin, rid);
+               runner.execute(checkin, rid);
 
             }
         });
@@ -80,11 +85,26 @@ public class GenerateQRCode extends AppCompatActivity {
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GenerateQRCode.this, Homepage.class);
+
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                try {
+                    reservetime = format.parse(time);
+                   currenttime = format.parse(checkin);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if(currenttime.after(reservetime)) {
+                    Toast.makeText(getApplicationContext(),"Your Reservation expired", Toast.LENGTH_SHORT).show();
+                } else if(currenttime.before(reservetime)){
+                    Toast.makeText(getApplicationContext(),"Your Reservation Time at"+time, Toast.LENGTH_SHORT).show();
+
+                } else{
+                    Intent intent = new Intent(GenerateQRCode.this, Homepage.class);
                     intent.putExtra("checkin", checkin);
                     intent.putExtra("rid", rid);
-
-                startActivity(intent);
+                    intent.putExtra("time", time);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -112,9 +132,9 @@ public class GenerateQRCode extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            userid = params[0];
-            checkin = params[1];
-            rid = params[2];
+
+            checkin = params[0];
+            rid = params[1];
             String retrieve_url = "http://192.168.137.1/getdata.php";
 
             try {
@@ -126,8 +146,7 @@ public class GenerateQRCode extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8") + "&"
-                        + URLEncoder.encode("checkin", "UTF-8") + "=" + URLEncoder.encode(checkin, "UTF-8") + "&"
+                String post_data =URLEncoder.encode("checkin", "UTF-8") + "=" + URLEncoder.encode(checkin, "UTF-8") + "&"
                         + URLEncoder.encode("rid", "UTF-8") + "=" + URLEncoder.encode(rid, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();

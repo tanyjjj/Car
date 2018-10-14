@@ -15,7 +15,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class Homepage extends AppCompatActivity {
-    String userid,rid,time;
+    String userid,rid,time,checkin;
     Calendar calender;
     SimpleDateFormat simpleDateFormat;
     String timeout;
@@ -24,10 +24,10 @@ public class Homepage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
-        userid = getIntent().getExtras().getString("userid");
         rid = getIntent().getExtras().getString("rid");
         time = getIntent().getExtras().getString("time");
-
+        userid = getIntent().getExtras().getString("userid");
+        checkin = getIntent().getExtras().getString("checkin");
         final TextView scan = (TextView) findViewById(R.id.scanText);
         final Activity activity = this;
         scan.setOnClickListener(new View.OnClickListener() {
@@ -49,11 +49,11 @@ public class Homepage extends AppCompatActivity {
                 calender = Calendar.getInstance();
                 simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                 timeout = simpleDateFormat.format(calender.getTime());
-
-               Intent intent = new Intent (Homepage.this,Checkout.class);
+              Intent intent = new Intent (Homepage.this,Checkout.class);
                 intent.putExtra("timeout", timeout);
                 intent.putExtra("rid", rid);
                 intent.putExtra("time", time);
+                intent.putExtra("checkin", checkin);
                 startActivity(intent);
             }
         });
@@ -90,6 +90,7 @@ public class Homepage extends AppCompatActivity {
       Intent goToView = new Intent(this, GenerateQRCode.class);
         goToView.putExtra("userid", userid);
         goToView.putExtra("rid", rid);
+        goToView.putExtra("time", time);
         startActivity(goToView);
     }
 
