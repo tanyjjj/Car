@@ -127,7 +127,7 @@ public class BackgroundCheckOut extends AsyncTask<String,Void,String> {
         {
             alertDialog.setMessage(result);
             alertDialog.show();
-            Intent intent = new Intent (context, Homepage.class);
+            Intent intent = new Intent (context, EditProfile.class);
             context.startActivity(intent);
 
         }

@@ -15,13 +15,14 @@ import java.util.Calendar;
 
 import java.util.Date;
 public class Checkout extends AppCompatActivity {
-    private TextView display, displayIn;
+    private TextView display, displayIn,parking;
     String rid, timeout, time,checkin;
-    Date checkinTime,checkoutTime;
-    //  String resulttime;
+    Date checkinTime = null;
+    Date checkoutTime = null;
+
     Calendar calender;
-    // double costPerHour =3.00;
-    //  double totalParkingFee;
+     double costPerHour =3.00;
+     double totalParkingFee,totalhour;
 
     TextView test;
     @Override
@@ -39,17 +40,26 @@ public class Checkout extends AppCompatActivity {
         displayIn = (TextView) findViewById(R.id.displaycheckin);
         displayIn.setText("Check In Time:" + time);
 
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
         try {
            checkinTime = format.parse(time);
            checkoutTime = format.parse(timeout);
-            test = (TextView) findViewById(R.id.testing);
-            test.setText("Crqrrqr:" + checkinTime+ "wqdqdqwd:" + checkoutTime);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
+ long diff= checkoutTime.getTime() - checkinTime.getTime();
+        long diffmin = diff / (60*60*1000);
+        totalhour = diffmin% 60;
+        if(totalhour<=0){
+totalParkingFee = costPerHour;
+        } else {
+            totalParkingFee = totalhour*costPerHour;
+        }
 
-
+       parking = (TextView) findViewById(R.id.parking_ID);
+       parking.setText("Total parking fee:"+ "RM" + totalParkingFee);
     }
 
 
@@ -58,7 +68,7 @@ public class Checkout extends AppCompatActivity {
         backgroundWorker.execute(timeout, rid);
         Intent goToView = new Intent(this, Homepage.class);
         startActivity(goToView);
-//totalParkingFee = costPerHour ×
+
     }
 
 }

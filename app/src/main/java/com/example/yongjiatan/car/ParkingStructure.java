@@ -60,8 +60,10 @@ public class ParkingStructure extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.parking_array, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
 
 
 
@@ -98,6 +100,7 @@ public class ParkingStructure extends AppCompatActivity {
 
                 String date = month + "/" + day + "/" + year;
                 mDisplayDate.setText(date);
+
             }
         };
 
@@ -106,11 +109,11 @@ public class ParkingStructure extends AppCompatActivity {
         ArrayAdapter<CharSequence> Adapter = ArrayAdapter.createFromResource(this,R.array.time, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         timespinner.setAdapter(Adapter);
     }
 
     public void SubmitParking(View view) {
+
         String text = spinner.getSelectedItem().toString();
        time = timespinner.getSelectedItem().toString();
         BackgroundWorkerParkingStructure backgroundWorker = new BackgroundWorkerParkingStructure(this);

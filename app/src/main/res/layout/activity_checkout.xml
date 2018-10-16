@@ -7,22 +7,6 @@
     tools:context=".Checkout"
     tools:layout_editor_absoluteY="25dp">
 
-    <EditText
-        android:id="@+id/fare"
-        android:layout_width="226dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="118dp"
-        android:layout_marginRight="118dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Total parking fare:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displaytext" />
 
     <Button
         android:id="@+id/checkout_Btn"
@@ -30,18 +14,17 @@
         android:layout_height="63dp"
         android:layout_marginStart="204dp"
         android:layout_marginLeft="204dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="59dp"
         android:layout_marginRight="59dp"
-        android:layout_marginBottom="127dp"
+        android:layout_marginBottom="102dp"
         android:onClick="SubmitParking"
         android:text="Check Out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fare"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/parking_ID" />
 
     <TextView
         android:id="@+id/displaytext"
@@ -95,10 +78,19 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
     <TextView
-        android:id="@+id/testing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testing"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="498dp" />
+        android:id="@+id/parking_ID"
+        android:layout_width="297dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginRight="59dp"
+        android:text="Total parking fare:"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displaytext" />
 </android.support.constraint.ConstraintLayout>

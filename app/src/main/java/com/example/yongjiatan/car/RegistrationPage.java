@@ -36,9 +36,6 @@ public class RegistrationPage extends AppCompatActivity {
         if(!validatePassword(password.getText().toString())||password.getText().toString().length()<8){
            password.setError("Password must be at least 8 characters,one number,one special character and upper case letter ");
            password.requestFocus();
-        }else{
-           Toast.makeText(RegistrationPage.this,"Valid",Toast.LENGTH_LONG).show();
-
         }
         if(!validateEmail(email.getText().toString())) {
             email.setError("Email must have valid email format.Please try again!");
