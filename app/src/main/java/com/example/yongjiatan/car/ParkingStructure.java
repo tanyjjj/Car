@@ -15,34 +15,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class ParkingStructure extends AppCompatActivity {
+    Button submit;
     Spinner spinner,timespinner;
-    String storedate;
+    String storedate ;
     String userid,time;
 
     private TextView mDisplayDate;
@@ -52,7 +37,9 @@ public class ParkingStructure extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parking_structure);
+        setContentView(R.layout.activity_parkingstructure);
+
+        submit = (Button)findViewById(R.id.submit_btn);
         userid = getIntent().getExtras().getString("userid");
 
         spinner = (Spinner) findViewById(R.id.parkingspinner);
@@ -96,9 +83,9 @@ public class ParkingStructure extends AppCompatActivity {
                 }
 
 
-                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "-" + day + "-" + year);
+             //   Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "-" + day + "-" + year);
 
-                String date = month + "/" + day + "/" + year;
+                String date = day + "/" + month + "/" + year;
                 mDisplayDate.setText(date);
 
             }
@@ -110,18 +97,51 @@ public class ParkingStructure extends AppCompatActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         timespinner.setAdapter(Adapter);
-    }
 
-    public void SubmitParking(View view) {
 
-        String text = spinner.getSelectedItem().toString();
-       time = timespinner.getSelectedItem().toString();
-        BackgroundWorkerParkingStructure backgroundWorker = new BackgroundWorkerParkingStructure(this);
-        backgroundWorker.execute(text,time,storedate, userid);
+
+     submit.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             AlertDialog.Builder alert = new AlertDialog.Builder(ParkingStructure.this);
+
+
+
+             Boolean flag = true;
+
+             if (spinner.getSelectedItem().toString().equals("Select Location")) {
+                 flag = false;
+                 alert.setTitle("Make Reservation");
+                 alert.setMessage("Please select Parking Location!!");
+
+             }
+             if (timespinner.getSelectedItem().toString().equals("Select Time")) {
+                 flag = false;
+                 alert.setTitle("Make Reservation");
+                 alert.setMessage("Please select Time!!");
+             }
+
+             if (storedate == (null)) {
+                 flag = false;
+                 alert.setTitle("Make Reservation");
+                 alert.setMessage("Please selectDate!!");
+             }
+             if (spinner.getSelectedItem().toString().equals("Select Location")&&(timespinner.getSelectedItem().toString().equals("Select Time")&&(storedate == (null)))){
+                 alert.setTitle("Make Reservation");
+                 alert.setMessage("Please select Reservation details!!");
+             }
+             if (flag.equals(false)) {
+                 AlertDialog dialog = alert.create();
+                 dialog.show();
+             }else{
+                 String text = spinner.getSelectedItem().toString();
+                 time = timespinner.getSelectedItem().toString();
+                 BackgroundWorkerParkingStructure backgroundWorker = new BackgroundWorkerParkingStructure(ParkingStructure.this);
+                 backgroundWorker.execute(text, time, storedate, userid);
+             }
+         }
+     });
+
     }
 }
-
-
-
-
 

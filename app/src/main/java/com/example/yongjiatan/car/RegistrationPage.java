@@ -31,11 +31,11 @@ public class RegistrationPage extends AppCompatActivity {
         if(!validateUserID(userid.getText().toString())) {
             userid.setError("UserID length must be minimum character 5 ");
             userid.requestFocus();
-            }
+        }
         //password.getText().toString().length()<8 &&
         if(!validatePassword(password.getText().toString())||password.getText().toString().length()<8){
-           password.setError("Password must be at least 8 characters,one number,one special character and upper case letter ");
-           password.requestFocus();
+            password.setError("Password must be at least 8 characters,one number,one special character and upper case letter ");
+            password.requestFocus();
         }
         if(!validateEmail(email.getText().toString())) {
             email.setError("Email must have valid email format.Please try again!");
@@ -65,7 +65,7 @@ public class RegistrationPage extends AppCompatActivity {
     }
 
 
-   protected boolean validateEmail(String email) {
+    protected boolean validateEmail(String email) {
         String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
@@ -75,12 +75,12 @@ public class RegistrationPage extends AppCompatActivity {
         return matcher.matches();
     }
     protected boolean validateUserID(String userid) {
-            if(userid!=null && userid.length()>5) {
-                return true;
-            } else {
-                return false;
-            }
-
+        if(userid!=null && userid.length()>5) {
+            return true;
+        } else {
+            return false;
         }
+
+    }
 
 }

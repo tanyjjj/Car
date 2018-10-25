@@ -110,11 +110,11 @@ public class GenerateQRCode extends AppCompatActivity {
                     intent.putExtra("rid", rid);
                     intent.putExtra("time", time);
                     startActivity(intent);
-                } else if (currenttime.after(reservetime)) {
+                } /**else if (currenttime.after(reservetime)) {
                     Toast.makeText(getApplicationContext(), "Your Reservation expired", Toast.LENGTH_SHORT).show();
                 } else if(currenttime.before(reservetime)) {
                     Toast.makeText(getApplicationContext(), "Your Reservation Time at" + time, Toast.LENGTH_SHORT).show();
-                }
+                } **/
             }
         });
 

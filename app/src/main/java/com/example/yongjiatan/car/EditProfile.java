@@ -3,11 +3,14 @@ package com.example.yongjiatan.car;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,10 +27,18 @@ import java.net.URLEncoder;
 public class EditProfile extends AppCompatActivity {
     EditText  Password, Name, ContactNo, DateOfBirth, Email;
     String userid;
+    public static final String registerpreference = "MyPrefs";
+    public static final String USERNAME = "usernameKey";
+    public static final String NAME = "nameKey";
+    public static final String PASSWORD = "passwordKey";
+    public static final String EMAIL = "emailKey";
+    public static final String CONTACTNO = "contactNoKey";
+    public static final String DOB = "DOBKey";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
         userid = getIntent().getExtras().getString("userid");
 
         Password = (EditText) findViewById(R.id.Upassword);
@@ -35,6 +46,17 @@ public class EditProfile extends AppCompatActivity {
         ContactNo = (EditText) findViewById(R.id.Ucontactno);
         DateOfBirth = (EditText) findViewById(R.id.Udate);
         Email = (EditText) findViewById(R.id.Uemail);
+
+        String MPassword = Password.getText().toString();
+        String MName = Name.getText().toString();
+        String MContactno = ContactNo.getText().toString();
+        String MDateofbirth = DateOfBirth.getText().toString();
+        String MEmail = Email.getText().toString();
+      //  SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences = getSharedPreferences("Edit",0);
+        String a = sharedPreferences.getString("USERNAME","password.getText().toString()");
+        TextView b = (TextView)findViewById(R.id.b);
+        b.setText(a);
     }
 
     public void OnUpdate(View view) {

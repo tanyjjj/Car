@@ -15,7 +15,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class Homepage extends AppCompatActivity {
-    String userid,rid,time,checkin;
+    String userid,rid,time,checkin,parkingspot;
     Calendar calender;
     SimpleDateFormat simpleDateFormat;
     String timeout;
@@ -28,6 +28,8 @@ public class Homepage extends AppCompatActivity {
         time = getIntent().getExtras().getString("time");
         userid = getIntent().getExtras().getString("userid");
         checkin = getIntent().getExtras().getString("checkin");
+      parkingspot = getIntent().getExtras().getString("parkingspot");
+
         final TextView scan = (TextView) findViewById(R.id.scanText);
         final Activity activity = this;
         scan.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +56,7 @@ public class Homepage extends AppCompatActivity {
                 intent.putExtra("rid", rid);
                 intent.putExtra("time", time);
                 intent.putExtra("checkin", checkin);
+                intent.putExtra("parkingspot", parkingspot);
                 startActivity(intent);
             }
         });

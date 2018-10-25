@@ -120,6 +120,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String result){
      if(result.toString().equals("success"))
      {
+
          alertDialog.setMessage(result);
          alertDialog.show();
 
@@ -129,8 +130,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
      } else if  (result.toString().equals("Registration successful.Thank you for registering"))
      {
-         alertDialog.setMessage(result);
-         alertDialog.show();
+
          Intent intent = new Intent (context, Login.class);
          context.startActivity(intent);
      }

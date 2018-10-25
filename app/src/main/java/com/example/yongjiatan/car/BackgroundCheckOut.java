@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,7 +21,8 @@ import java.net.URLEncoder;
 public class BackgroundCheckOut extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
-    String rid,timeout;
+    String rid, timeout;
+    String parkingspot;
 
     BackgroundCheckOut(Context ctx) {
         context = ctx;
@@ -29,126 +31,84 @@ public class BackgroundCheckOut extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... params) {
         timeout = params[0];
-         rid = params[1];
+        rid = params[1];
+        parkingspot = params[2];
         String updatetime_url = "http://192.168.137.1/updatetime.php";
-
-            try {
-                URL url = new URL(updatetime_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("timeout", "UTF-8") + "=" + URLEncoder.encode(timeout, "UTF-8") + "&"
-                        + URLEncoder.encode("rid", "UTF-8") + "=" + URLEncoder.encode(rid, "UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                String result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
-                bufferedReader.close();
-                ;
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+        String updatestatus_url = "http://192.168.137.1/parkingspotcheckout.php";
+        try {
+            URL url = new URL(updatetime_url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            String post_data = URLEncoder.encode("timeout", "UTF-8") + "=" + URLEncoder.encode(timeout, "UTF-8") + "&"
+                    + URLEncoder.encode("rid", "UTF-8") + "=" + URLEncoder.encode(rid, "UTF-8");
+            bufferedWriter.write(post_data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
             }
+            bufferedReader.close();
+            ;
+            inputStream.close();
+            httpURLConnection.disconnect();
+
+            URL statusurl = new URL(updatestatus_url);
+            //Create a connection
+          httpURLConnection = (HttpURLConnection) statusurl.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            outputStream = httpURLConnection.getOutputStream();
+          bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            post_data = URLEncoder.encode("parkingspot", "UTF-8") + "=" + URLEncoder.encode(parkingspot, "UTF-8");
+            bufferedWriter.write(post_data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+       inputStream = httpURLConnection.getInputStream();
+            bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+             result = "";
+          //   line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            return result;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return null;
     }
 
-
-
-    /**    else if (type.equals("ParkingSpot")) {
-            try {
-                String userid = params[1];
-                String password = params[2];
-                String name = params[3];
-                String contactno = params[4];
-                String dateofbirth = params[5];
-                String email = params[6];
-                URL url = new URL(register_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8") + "&"
-                        + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") + "&"
-                        + URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8") + "&"
-                        + URLEncoder.encode("contactno", "UTF-8") + "=" + URLEncoder.encode(contactno, "UTF-8") + "&"
-                        + URLEncoder.encode("dateofbirth", "UTF-8") + "=" + URLEncoder.encode(dateofbirth, "UTF-8") + "&"
-                        + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
-
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line="";
-                while((line = bufferedReader.readLine())!=null) {
-                    result += line;
-                }
-                bufferedReader.close();;
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            }catch(MalformedURLException e){
-                e.printStackTrace();
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-
-        }
-        return null; **/
-
-
-  /**  @Override
+    @Override
     protected void onPreExecute(){
         alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status");
-    } **/
-    @Override
-    protected void onPostExecute(String result){
-        if(result.toString().equals("Insert successful"))
-        {
-            alertDialog.setMessage(result);
-            alertDialog.show();
-            Intent intent = new Intent (context, EditProfile.class);
-            context.startActivity(intent);
-
-        }
-
-       /** else if  (result.toString().equals("Registration successful.Thank you for registering"))
-        {
-            alertDialog.setMessage(result);
-            alertDialog.show();
-            Intent intent = new Intent (context, Login.class);
-            context.startActivity(intent);
-        } **/
-        else
-        {
-            alertDialog.setMessage(result);
-            alertDialog.show();
-        }
+        alertDialog.setTitle("You have successfully checked out.");
     }
 
     @Override
-    protected void onProgressUpdate(Void... values){
-        super.onProgressUpdate(values);
+    protected void onPostExecute(String result) {
+          if(result.toString().equals("Insert successful"))
+          {
+        alertDialog.setMessage(result);
+        alertDialog.show();
+       Intent intent = new Intent(context, Homepage.class);
+       context.startActivity(intent);
+   }
     }
 
 }
