@@ -15,7 +15,7 @@ import java.util.Calendar;
 
 import java.util.Date;
 public class Checkout extends AppCompatActivity {
-    private TextView display, displayIn,parking;
+    private TextView display, displayIn,parking,timeD;
     String rid, timeout, time,checkin,parkingspot;
     Date checkinTime = null;
     Date checkoutTime = null;
@@ -60,6 +60,8 @@ totalParkingFee = costPerHour;
             totalParkingFee = totalhour*costPerHour;
         }
 
+      timeD   = (TextView) findViewById(R.id.timedisplay);
+       timeD.setText("Total parking hours:"+ totalhour );
        parking = (TextView) findViewById(R.id.parking_ID);
         parking.setText("Total parking fee:"+ "RM" + totalParkingFee );
 

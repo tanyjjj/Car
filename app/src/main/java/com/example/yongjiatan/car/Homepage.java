@@ -1,6 +1,8 @@
 package com.example.yongjiatan.car;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ public class Homepage extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat;
     String timeout;
     TextView Text;
+
+    final Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,22 +48,7 @@ public class Homepage extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
-        Text = (TextView) findViewById(R.id.checkoutText);
-        Text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calender = Calendar.getInstance();
-                simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                timeout = simpleDateFormat.format(calender.getTime());
-              Intent intent = new Intent (Homepage.this,Checkout.class);
-                intent.putExtra("timeout", timeout);
-                intent.putExtra("rid", rid);
-                intent.putExtra("time", time);
-                intent.putExtra("checkin", checkin);
-                intent.putExtra("parkingspot", parkingspot);
-                startActivity(intent);
-            }
-        });
+
     }
 
 
@@ -89,12 +78,21 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void JumpToViewReservation(View view) {
+        if (rid == null) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                    context);
+            alertDialog.setTitle("Notice!");
+            alertDialog.setMessage("Please reserve your parking spot");
+            AlertDialog alertDialogB = alertDialog.create();
 
-      Intent goToView = new Intent(this, GenerateQRCode.class);
-        goToView.putExtra("userid", userid);
-        goToView.putExtra("rid", rid);
-        goToView.putExtra("time", time);
-        startActivity(goToView);
+            alertDialogB.show();
+        } else {
+            Intent goToView = new Intent(this, GenerateQRCode.class);
+            goToView.putExtra("userid", userid);
+            goToView.putExtra("rid", rid);
+            goToView.putExtra("time", time);
+            startActivity(goToView);
+        }
     }
 
     public void JumpToUpdateProfile(View view) {
@@ -102,6 +100,35 @@ public class Homepage extends AppCompatActivity {
         goToUpdate.putExtra("userid", userid);
         startActivity(goToUpdate);
     }
+    public void JumptoCheckOut(View view) {
 
+        Text = (TextView) findViewById(R.id.checkoutText);
+        Text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+               if (rid==null) {
+                    AlertDialog.Builder alertDialog= new AlertDialog.Builder(
+                            context);
+                    alertDialog.setTitle("Notice!");
+                    alertDialog.setMessage("Please reserve your parking spot");
+                    AlertDialog alertDialogB = alertDialog.create();
+
+                    alertDialogB.show();
+                } else {
+                   calender = Calendar.getInstance();
+                    simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                    timeout = simpleDateFormat.format(calender.getTime());
+                    Intent intent = new Intent(Homepage.this, Checkout.class);
+                    intent.putExtra("timeout", timeout);
+                    intent.putExtra("rid", rid);
+                    intent.putExtra("time", time);
+                    intent.putExtra("checkin", checkin);
+                    intent.putExtra("parkingspot", parkingspot);
+                    startActivity(intent);
+              }
+            }
+        });
+    }
 }
 
