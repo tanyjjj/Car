@@ -23,7 +23,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
     String userid;
-    TextView x;
+    TextView A;
     BackgroundWorker(Context ctx){
         context = ctx;
     }
