@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.TextView;
 
 
 import java.io.BufferedReader;
@@ -22,6 +23,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
     String userid;
+    TextView x;
     BackgroundWorker(Context ctx){
         context = ctx;
     }
