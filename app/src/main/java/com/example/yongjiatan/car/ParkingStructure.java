@@ -2,6 +2,7 @@ package com.example.yongjiatan.car;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteCursor;
@@ -19,7 +20,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -27,10 +31,11 @@ import java.util.GregorianCalendar;
 public class ParkingStructure extends AppCompatActivity {
     Button submit;
     Spinner spinner,timespinner;
-    String storedate ;
+    String storedate,storetime;
     String userid,time;
 
     private TextView mDisplayDate;
+    private TextView mDisplayTime;
     private static final String TAG = "ParkingStructure";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -91,12 +96,44 @@ public class ParkingStructure extends AppCompatActivity {
             }
         };
 
-        timespinner = (Spinner) findViewById(R.id.spinnertime);
+        mDisplayTime=(TextView) findViewById(R.id.tvTime);
+        mDisplayTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar currentTime= Calendar.getInstance();
+            int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = currentTime.get(Calendar.MINUTE);
+        TimePickerDialog  timePickerDialog = new TimePickerDialog(ParkingStructure.this, new TimePickerDialog.OnTimeSetListener() {
+               @Override
+                public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 
-        ArrayAdapter<CharSequence> Adapter = ArrayAdapter.createFromResource(this,R.array.time, android.R.layout.simple_spinner_item);
+                   String m = "";
+                   if (minute < 10)
+                       m = "0" + minute;
+                   else
+                       m = String.valueOf(minute);
+                   String am_pm;
+            if(hour<12){
+                am_pm = "AM";
+                mDisplayTime.setText(hour+":"+m+" "+am_pm);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timespinner.setAdapter(Adapter);
+            }else if (hour==12){
+                am_pm="PM";
+                mDisplayTime.setText(hour+":"+m+" "+am_pm);
+
+            }else {
+                am_pm="PM";
+                mDisplayTime.setText(hour+":"+m+" "+am_pm);
+              //  storetime = hour +":" +minute+" "+am_pm;
+
+            }
+                    storetime = hour +":" +minute+":"+"00";
+           }
+            },hour,minute,true);
+          timePickerDialog.show();
+
+            }
+                });
 
 
 
@@ -115,7 +152,7 @@ public class ParkingStructure extends AppCompatActivity {
                  alert.setMessage("Please select Parking Location!!");
 
              }
-             if (timespinner.getSelectedItem().toString().equals("Select Time")) {
+             if (storetime == (null)) {
                  flag = false;
                  alert.setTitle("Make Reservation");
                  alert.setMessage("Please select Time!!");
@@ -126,7 +163,7 @@ public class ParkingStructure extends AppCompatActivity {
                  alert.setTitle("Make Reservation");
                  alert.setMessage("Please selectDate!!");
              }
-             if (spinner.getSelectedItem().toString().equals("Select Location")&&(timespinner.getSelectedItem().toString().equals("Select Time")&&(storedate == (null)))){
+             if (spinner.getSelectedItem().toString().equals("Select Location")&&(storetime == (null)&&(storedate == (null)))){
                  alert.setTitle("Make Reservation");
                  alert.setMessage("Please select Reservation details!!");
              }
@@ -135,9 +172,9 @@ public class ParkingStructure extends AppCompatActivity {
                  dialog.show();
              }else{
                  String text = spinner.getSelectedItem().toString();
-                 time = timespinner.getSelectedItem().toString();
+                // time = timespinner.getSelectedItem().toString();
                  BackgroundWorkerParkingStructure backgroundWorker = new BackgroundWorkerParkingStructure(ParkingStructure.this);
-                 backgroundWorker.execute(text, time, storedate, userid);
+                 backgroundWorker.execute(text, storetime, storedate, userid);
              }
          }
      });

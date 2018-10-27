@@ -22,7 +22,7 @@ public class Checkout extends AppCompatActivity {
 
     Calendar calender;
      double costPerHour =3.00;
-     double totalParkingFee,totalhour;
+     double totalParkingFee,totalhour,totalhourextra;
 
     TextView test;
     @Override
@@ -51,19 +51,29 @@ public class Checkout extends AppCompatActivity {
             e.printStackTrace();
         }
  long diff= checkoutTime.getTime() - checkinTime.getTime();
-        long diffmin = (diff / (60*60*1000));
-        totalhour = (diffmin)% 60;
+       long diffhour= (diff / (60*60*1000));
+        long diffmin = (diff / (60*1000)%60);
+        totalhour = (diffhour)% 60;
+
 
         if(totalhour<=0){
 totalParkingFee = costPerHour;
-        } else {
+        } else if (totalhour >=10){
+            totalParkingFee = 25;
+        } else if (totalhour >=24){
+            totalParkingFee = 50
+            ;
+        }else if (diffmin>30) {
+            totalhourextra = totalhour +1;
+            totalParkingFee = totalhourextra*costPerHour;
+        }
+        else {
             totalParkingFee = totalhour*costPerHour;
         }
-
-      timeD   = (TextView) findViewById(R.id.timedisplay);
-       timeD.setText("Total parking hours:"+ totalhour );
+        timeD  = (TextView) findViewById(R.id.timedisplay);
+       timeD.setText("Total parking time:"+diffhour+"hour & "+diffmin+"minutes" );
        parking = (TextView) findViewById(R.id.parking_ID);
-        parking.setText("Total parking fee:"+ "RM" + totalParkingFee );
+       parking.setText("Total parking fee:"+ "RM" + totalParkingFee );
 
     }
 
