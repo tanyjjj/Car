@@ -30,10 +30,10 @@ import java.util.GregorianCalendar;
 
 public class ParkingStructure extends AppCompatActivity {
     Button submit;
-    Spinner spinner,timespinner;
+    Spinner spinner;
     String storedate,storetime;
     String userid,time;
-
+    private final static int TIME_PICKER_INTERVAL = 30;
     private TextView mDisplayDate;
     private TextView mDisplayTime;
     private static final String TAG = "ParkingStructure";
@@ -101,11 +101,17 @@ public class ParkingStructure extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Calendar currentTime= Calendar.getInstance();
-            int hour = currentTime.get(Calendar.HOUR_OF_DAY);
-            int minute = currentTime.get(Calendar.MINUTE);
-        TimePickerDialog  timePickerDialog = new TimePickerDialog(ParkingStructure.this, new TimePickerDialog.OnTimeSetListener() {
+           final int Hour = currentTime.get(Calendar.HOUR_OF_DAY);
+           final int Minute = currentTime.get(Calendar.MINUTE);
+        final TimePickerDialog  timePickerDialog = new TimePickerDialog(ParkingStructure.this, new TimePickerDialog.OnTimeSetListener() {
                @Override
                 public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+
+                 //set minDate( it will update to the current time
+               /**    if(hour<Hour){
+                       hour =Hour;
+                       minute =Minute;
+                   } **/
 
                    String m = "";
                    if (minute < 10)
@@ -124,12 +130,14 @@ public class ParkingStructure extends AppCompatActivity {
             }else {
                 am_pm="PM";
                 mDisplayTime.setText(hour+":"+m+" "+am_pm);
-              //  storetime = hour +":" +minute+" "+am_pm;
+
 
             }
                     storetime = hour +":" +minute+":"+"00";
            }
-            },hour,minute,true);
+            },Hour,Minute ,true);
+
+
           timePickerDialog.show();
 
             }
@@ -172,7 +180,6 @@ public class ParkingStructure extends AppCompatActivity {
                  dialog.show();
              }else{
                  String text = spinner.getSelectedItem().toString();
-                // time = timespinner.getSelectedItem().toString();
                  BackgroundWorkerParkingStructure backgroundWorker = new BackgroundWorkerParkingStructure(ParkingStructure.this);
                  backgroundWorker.execute(text, storetime, storedate, userid);
              }
@@ -180,5 +187,6 @@ public class ParkingStructure extends AppCompatActivity {
      });
 
     }
+
 }
 

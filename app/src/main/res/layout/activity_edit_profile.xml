@@ -141,12 +141,4 @@
         app:layout_constraintTop_toBottomOf="@+id/Uemail"
         app:layout_constraintVertical_bias="0.548" />
 
-    <TextView
-        android:id="@+id/b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="465dp" />
-
 </android.support.constraint.ConstraintLayout>

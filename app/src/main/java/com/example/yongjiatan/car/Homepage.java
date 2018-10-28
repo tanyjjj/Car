@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
@@ -32,7 +30,7 @@ public class Homepage extends AppCompatActivity {
         time = getIntent().getExtras().getString("time");
         userid = getIntent().getExtras().getString("userid");
         checkin = getIntent().getExtras().getString("checkin");
-      parkingspot = getIntent().getExtras().getString("parkingspot");
+        parkingspot = getIntent().getExtras().getString("parkingspot");
 
         final TextView scan = (TextView) findViewById(R.id.scanText);
         final Activity activity = this;
@@ -52,7 +50,7 @@ public class Homepage extends AppCompatActivity {
     }
 
 
-   @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
@@ -96,9 +94,8 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void JumpToUpdateProfile(View view) {
-        Intent goToUpdate = new Intent(this, EditProfile.class);
-        goToUpdate.putExtra("userid", userid);
-        startActivity(goToUpdate);
+        BackgroundSelectProfile backgroundWorker = new BackgroundSelectProfile(this);
+        backgroundWorker.execute(userid);
     }
     public void JumptoCheckOut(View view) {
 
@@ -107,7 +104,7 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               if (rid==null) {
+                if (rid==null) {
                     AlertDialog.Builder alertDialog= new AlertDialog.Builder(
                             context);
                     alertDialog.setTitle("Notice!");
@@ -116,7 +113,7 @@ public class Homepage extends AppCompatActivity {
 
                     alertDialogB.show();
                 } else {
-                   calender = Calendar.getInstance();
+                    calender = Calendar.getInstance();
                     simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                     timeout = simpleDateFormat.format(calender.getTime());
                     Intent intent = new Intent(Homepage.this, Checkout.class);
@@ -126,9 +123,8 @@ public class Homepage extends AppCompatActivity {
                     intent.putExtra("checkin", checkin);
                     intent.putExtra("parkingspot", parkingspot);
                     startActivity(intent);
-              }
+                }
             }
         });
     }
 }
-
