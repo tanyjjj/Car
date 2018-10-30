@@ -44,8 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class GenerateQRCode extends AppCompatActivity {
-    String DATE, TIME, LOCATION;
-    String checkin,time;
+    String checkin,time,data;
     String userid, rid;
     EditText text;
     ImageView image;
@@ -63,23 +62,18 @@ public class GenerateQRCode extends AppCompatActivity {
         userid = getIntent().getExtras().getString("userid");
         rid = getIntent().getExtras().getString("rid");
         time = getIntent().getExtras().getString("time");
+        data =getIntent().getExtras().getString("data");
+
 
         image = (ImageView) findViewById(R.id.image);
         Button gen_btn = (Button) findViewById(R.id.gen_btn);
-//temp
         tv = (TextView) findViewById(R.id.display);
 
         gen_btn.setOnClickListener(new View.OnClickListener() {
             //trigger when button clicked
             @Override
             public void onClick(View view) {
-                calender = Calendar.getInstance();
-                simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                checkin = simpleDateFormat.format(calender.getTime());
-
-               BackgroundRun runner = new BackgroundRun();
-               runner.execute(checkin, rid);
-
+                generateQR(data);
             }
         });
 
@@ -87,34 +81,39 @@ public class GenerateQRCode extends AppCompatActivity {
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (image == null) {
+                    Toast.makeText(getApplicationContext(), "Please click on Generate button" , Toast.LENGTH_SHORT).show();
 
-                SimpleDateFormat f = new SimpleDateFormat("HH:mm:ss");
+                } else {
+                    calender = Calendar.getInstance();
+                    simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                    checkin = simpleDateFormat.format(calender.getTime());
 
-                try {
-                    Date d = f.parse(time);
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(d);
-                    cal.add(Calendar.MINUTE, 10);
-                    newTime = f.format(cal.getTime());
+                    SimpleDateFormat f = new SimpleDateFormat("HH:mm:ss");
 
-                    newReserveTime = f.parse(newTime);
-                    reservetime = f.parse(time);
-                    currenttime = f.parse(checkin);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    try {
+                        Date d = f.parse(time);
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(d);
+                        cal.add(Calendar.MINUTE, 10);
+                        newTime = f.format(cal.getTime());
+
+                        newReserveTime = f.parse(newTime);
+                        reservetime = f.parse(time);
+                        currenttime = f.parse(checkin);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (currenttime.before(newReserveTime)) {
+                        BackgroundRun runner = new BackgroundRun();
+                        runner.execute(checkin, rid);
+                    } /**else if (currenttime.after(reservetime)) {
+                     Toast.makeText(getApplicationContext(), "Your Reservation expired", Toast.LENGTH_SHORT).show();
+                     } else if(currenttime.before(reservetime)) {
+                     Toast.makeText(getApplicationContext(), "Your Reservation Time at" + time, Toast.LENGTH_SHORT).show();
+                     } **/
                 }
-
-                if (currenttime.before(newReserveTime)) {
-                    Intent intent = new Intent(GenerateQRCode.this, Homepage.class);
-                    intent.putExtra("checkin", checkin);
-                    intent.putExtra("rid", rid);
-                    intent.putExtra("time", time);
-                    startActivity(intent);
-                } /**else if (currenttime.after(reservetime)) {
-                    Toast.makeText(getApplicationContext(), "Your Reservation expired", Toast.LENGTH_SHORT).show();
-                } else if(currenttime.before(reservetime)) {
-                    Toast.makeText(getApplicationContext(), "Your Reservation Time at" + time, Toast.LENGTH_SHORT).show();
-                } **/
             }
         });
 
@@ -133,7 +132,7 @@ public class GenerateQRCode extends AppCompatActivity {
         }
 
         //temp
-        tv.setText("Date: " + DATE + "\n Time: " + TIME + "\n Location: " + LOCATION);
+        tv.setText(data);
 
     }
 
@@ -143,10 +142,9 @@ public class GenerateQRCode extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-
             checkin = params[0];
             rid = params[1];
-            String retrieve_url = "http://192.168.137.1/getdata.php";
+            String retrieve_url = "http://192.168.137.1/updatecheckin.php";
 
             try {
 
@@ -184,29 +182,19 @@ public class GenerateQRCode extends AppCompatActivity {
             return null;
 
         }
-
+        @Override
+        protected void onPreExecute() {
+            alertDialog = new AlertDialog.Builder(GenerateQRCode.this).create();
+            alertDialog.setTitle("Check In Status ");
+        }
         @Override
         protected void onPostExecute(String result) {
-            try {
-
-               JSONObject c = new JSONObject(result);
-
-
-                for (int i = 0; i < c.length(); i++) {
-                    DATE = c.getString("date");
-                    TIME = c.getString("time");
-                    LOCATION = c.getString("parkingstructure");
-                   String data = "Date: " + DATE + "\n Time: " + TIME + "\n Location: " + LOCATION;
-                    //   Toast.makeText(getApplicationContext(),DATE + TIME + LOCATION, Toast.LENGTH_SHORT).show();
-                    generateQR(data);
-
-
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
+            alertDialog.setMessage(checkin);
+            Intent intent = new Intent(GenerateQRCode.this, Homepage.class);
+            intent.putExtra("checkin", checkin);
+              intent.putExtra("rid", rid);
+            intent.putExtra("time", time);
+            startActivity(intent);
         }
     }
 }

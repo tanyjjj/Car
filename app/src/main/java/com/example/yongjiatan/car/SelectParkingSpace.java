@@ -12,23 +12,28 @@ import android.widget.Toast;
 
 public class SelectParkingSpace extends AppCompatActivity {
     Button carparkL101,carparkL102,carparkL103;
-
+    String parking101,parking102;
     int status = 0;
-    String rid,time,userid;
+    String time,userid;
     TextView L101,L102,L103;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_parking_space);
         userid = getIntent().getExtras().getString("userid");
-     rid = getIntent().getExtras().getString("rid");
         time = getIntent().getExtras().getString("time");
+        parking101 = getIntent().getExtras().getString("parking101");
+        parking102 = getIntent().getExtras().getString("parking102");
+
+        TextView Testing = (TextView) findViewById(R.id.trya);
+          Testing.setText(parking101+parking102);
+
 
         final Button firstButton = (Button) findViewById(R.id.levelBtn1);
         Button secondButton = (Button) findViewById(R.id.levelBtn2);
 
 
-        L101 = (TextView)findViewById(R.id.S101);
+        L101 = (TextView)findViewById(R.id.trya);
 
         carparkL101 = (Button)findViewById(R.id.carpark101);
 
@@ -38,7 +43,7 @@ public class SelectParkingSpace extends AppCompatActivity {
                 public void onClick(View v) {
                     String TEXT1 ="L1-01";
                    BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                    Worker.execute(TEXT1,rid,userid,time);
+                    Worker.execute(TEXT1,userid,time);
                     Toast.makeText(getApplicationContext(), "L1-01 has been reserved.." ,  Toast.LENGTH_SHORT).show();
                     carparkL101.setEnabled(false);
 
@@ -53,7 +58,7 @@ public class SelectParkingSpace extends AppCompatActivity {
             public void onClick(View v) {
                 String TEXT2 ="L1-02";
                 BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                Worker.execute(TEXT2,rid,userid,time);
+                Worker.execute(TEXT2,userid,time);
                 Toast.makeText(getApplicationContext(), "L1-02 has been reserved.." ,  Toast.LENGTH_SHORT).show();
                 carparkL101.setEnabled(false);
             }
@@ -67,7 +72,7 @@ public class SelectParkingSpace extends AppCompatActivity {
             public void onClick(View v) {
                 String TEXT3 ="L1-03";
                 BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                Worker.execute(TEXT3,rid,userid,time);
+                Worker.execute(TEXT3,userid,time);
                 Toast.makeText(getApplicationContext(), "L1-03 has been reserved.." ,  Toast.LENGTH_SHORT).show();
                 carparkL101.setEnabled(false);
             }

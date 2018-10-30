@@ -23,20 +23,18 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class BackgroundParkingSpot extends AsyncTask<String,Void,String> {
-
+    AlertDialog alertDialog;
         Context context;
-String test;
-    JSONObject id;
-        String parkingspot, rid,time,userid;
+   // JSONObject id;
+        String parkingspot,time,userid;
         BackgroundParkingSpot (Context ctx) {
             context = ctx;
         }
         @Override
         protected String doInBackground(String... params) {
            parkingspot = params[0];
-           rid = params[1];
-          userid= params[2];
-           time = params[3];
+          userid= params[1];
+           time = params[2];
             String parkingspot_url = "http://192.168.137.1/parkingspot.php";
 
             try {
@@ -49,7 +47,8 @@ String test;
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("parkingspot", "UTF-8") + "=" + URLEncoder.encode(parkingspot, "UTF-8") ;
+                String post_data = URLEncoder.encode("parkingspot", "UTF-8") + "=" + URLEncoder.encode(parkingspot, "UTF-8")+ "&"
+                        + URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -72,33 +71,25 @@ String test;
             }
             return null;
         }
+    @Override
+    protected void onPreExecute(){
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("Your Reservation ID : ");
+
+    }
 
         @Override
         protected void onPostExecute(String result) {
-            String[] test;
-            try {
-
-                JSONArray c = new JSONArray(result);
-
-
-
-                for (int i = 0; i < c.length(); i++) {
-                    JSONObject j = c.getJSONObject(i);
-                    Toast.makeText(context, j.getString("parkingspot"),Toast.LENGTH_SHORT).show();
-
-             //      test = j.getString("parkingspot");
-
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            alertDialog.setMessage(result);
+            alertDialog.show();
+            super.onPostExecute(result);
 
        Intent intent = new Intent (context,Homepage.class);
-            intent.putExtra("rid", rid);
+       intent.putExtra("rid", result);
           intent.putExtra("time", time);
           intent.putExtra("userid", userid);
-            intent.putExtra("parkingspot", parkingspot);
+          intent.putExtra("parkingspot", parkingspot);
+
             context.startActivity(intent);
 
 

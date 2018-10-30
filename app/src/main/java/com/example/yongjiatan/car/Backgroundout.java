@@ -2,9 +2,7 @@ package com.example.yongjiatan.car;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,16 +16,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class BackgroundCheckOut extends AsyncTask<String,Void,String> {
+public class Backgroundout extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
     String rid, timeout;
     String parkingspot;
 
-    BackgroundCheckOut(Context ctx) {
+    Backgroundout(Context ctx) {
         context = ctx;
     }
-
     @Override
     protected String doInBackground(String... params) {
         timeout = params[0];
@@ -63,21 +60,21 @@ public class BackgroundCheckOut extends AsyncTask<String,Void,String> {
 
             URL statusurl = new URL(updatestatus_url);
             //Create a connection
-          httpURLConnection = (HttpURLConnection) statusurl.openConnection();
+            httpURLConnection = (HttpURLConnection) statusurl.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
             outputStream = httpURLConnection.getOutputStream();
-          bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
             post_data = URLEncoder.encode("parkingspot", "UTF-8") + "=" + URLEncoder.encode(parkingspot, "UTF-8");
             bufferedWriter.write(post_data);
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
-       inputStream = httpURLConnection.getInputStream();
+            inputStream = httpURLConnection.getInputStream();
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-             result = "";
-          //   line = "";
+            result = "";
+            //   line = "";
             while ((line = bufferedReader.readLine()) != null) {
                 result += line;
             }
@@ -95,21 +92,20 @@ public class BackgroundCheckOut extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPreExecute(){
+    protected void onPreExecute() {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("You have successfully checked out.");
     }
 
     @Override
     protected void onPostExecute(String result) {
-          if(result.toString().equals("Insert successful"))
-          {
-        alertDialog.setMessage(result);
-        alertDialog.show();
-    //   Intent intent = new Intent(context, Homepage.class);
-     //  context.startActivity(intent);
-   }
+        if (result.toString().equals("Have a nice day")) {
+            alertDialog.setMessage(result);
+            alertDialog.show();
+            //   Intent intent = new Intent(context, Homepage.class);
+            //  context.startActivity(intent);
+        }
     }
-
 }
+
 

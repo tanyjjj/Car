@@ -79,10 +79,8 @@ totalParkingFee = costPerHour;
 
 
     public void SubmitParking(View view) {
-        BackgroundCheckOut backgroundWorker = new BackgroundCheckOut(this);
+        Backgroundout backgroundWorker = new Backgroundout(this);
         backgroundWorker.execute(timeout, rid,parkingspot);
-        Intent goToView = new Intent(this, Homepage.class);
-        startActivity(goToView);
 
     }
 

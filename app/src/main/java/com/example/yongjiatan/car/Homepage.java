@@ -20,7 +20,7 @@ public class Homepage extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat;
     String timeout;
     TextView Text;
-
+    AlertDialog alertDialog;
     final Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class Homepage extends AppCompatActivity {
         userid = getIntent().getExtras().getString("userid");
         checkin = getIntent().getExtras().getString("checkin");
         parkingspot = getIntent().getExtras().getString("parkingspot");
+
 
         final TextView scan = (TextView) findViewById(R.id.scanText);
         final Activity activity = this;
@@ -85,11 +86,8 @@ public class Homepage extends AppCompatActivity {
 
             alertDialogB.show();
         } else {
-            Intent goToView = new Intent(this, GenerateQRCode.class);
-            goToView.putExtra("userid", userid);
-            goToView.putExtra("rid", rid);
-            goToView.putExtra("time", time);
-            startActivity(goToView);
+            BackgroundQRCode backgroundWorker = new BackgroundQRCode(this);
+            backgroundWorker.execute(rid,time);
         }
     }
 
@@ -104,11 +102,11 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (rid==null) {
+                if (checkin==null) {
                     AlertDialog.Builder alertDialog= new AlertDialog.Builder(
                             context);
                     alertDialog.setTitle("Notice!");
-                    alertDialog.setMessage("Please reserve your parking spot");
+                    alertDialog.setMessage("Please Check-In");
                     AlertDialog alertDialogB = alertDialog.create();
 
                     alertDialogB.show();
@@ -116,13 +114,13 @@ public class Homepage extends AppCompatActivity {
                     calender = Calendar.getInstance();
                     simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                     timeout = simpleDateFormat.format(calender.getTime());
-                    Intent intent = new Intent(Homepage.this, Checkout.class);
-                    intent.putExtra("timeout", timeout);
-                    intent.putExtra("rid", rid);
-                    intent.putExtra("time", time);
-                    intent.putExtra("checkin", checkin);
-                    intent.putExtra("parkingspot", parkingspot);
-                    startActivity(intent);
+                    Intent goToCheckOut = new Intent(Homepage.this, Checkout.class);
+                    goToCheckOut.putExtra("timeout", timeout);
+                    goToCheckOut.putExtra("rid", rid);
+                    goToCheckOut.putExtra("time", time);
+                    goToCheckOut.putExtra("checkin", checkin);
+                    goToCheckOut.putExtra("parkingspot", parkingspot);
+                    startActivity(goToCheckOut);
                 }
             }
         });

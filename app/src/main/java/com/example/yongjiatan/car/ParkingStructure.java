@@ -107,7 +107,7 @@ public class ParkingStructure extends AppCompatActivity {
                @Override
                 public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 
-                 //set minDate( it will update to the current time
+                 //set minT( it will update to the current time
                /**    if(hour<Hour){
                        hour =Hour;
                        minute =Minute;
