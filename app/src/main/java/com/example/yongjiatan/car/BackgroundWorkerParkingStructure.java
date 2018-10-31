@@ -98,7 +98,7 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
         try {
             JSONArray c = new JSONArray(result);
             for (int i = 0; i < c.length(); i++) {
-                //     Toast.makeText(context, j.getString("parkingspot"), Toast.LENGTH_SHORT).show();
+
                 JSONObject j = c.getJSONObject(i);
                 test = j.getString("parkingspot");
 
