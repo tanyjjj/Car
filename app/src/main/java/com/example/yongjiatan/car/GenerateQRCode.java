@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,6 +64,60 @@ public class GenerateQRCode extends AppCompatActivity {
         rid = getIntent().getExtras().getString("rid");
         time = getIntent().getExtras().getString("time");
         data =getIntent().getExtras().getString("data");
+
+
+        Button cancel_btn = (Button) findViewById(R.id.cancelBtn);
+        cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+        public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(GenerateQRCode.this);
+
+                // Set a title for alert dialog
+                builder.setTitle("Select an option");
+
+                // Ask the final question
+                builder.setMessage("Do you want to cancel your car park reservation?");
+
+                // Set click listener for alert dialog buttons
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch(which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                // User clicked the Yes button
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                // User clicked the No button
+                                Toast.makeText(getApplicationContext(),
+                                        "Thank you",Toast.LENGTH_SHORT).show();
+                                break;
+
+                            case DialogInterface.BUTTON_NEUTRAL:
+                                // Neutral/Cancel button clicked
+                                Toast.makeText(getApplicationContext(),
+                                        "You clicked Cancel button.",Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                };
+
+                // Set the alert dialog yes button click listener
+                builder.setPositiveButton("Yes", dialogClickListener);
+
+                // Set the alert dialog no button click listener
+                builder.setNegativeButton("No",dialogClickListener);
+
+                // Set the alert dialog cancel/neutral button click listener
+                builder.setNeutralButton("Cancel", dialogClickListener);
+
+                AlertDialog dialog = builder.create();
+                // Display the three buttons alert dialog on interface
+                dialog.show();
+            }
+        });
+
 
 
         image = (ImageView) findViewById(R.id.image);

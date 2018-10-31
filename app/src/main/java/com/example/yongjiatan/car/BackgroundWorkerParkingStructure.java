@@ -33,14 +33,9 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
     Context context;
     AlertDialog alertDialog;
     String time,userid;
-    String parking101 ="L1-01";
-    String parking102 ="L1-02";
-    String parking103 ="L1-03";
-    String parking201 ="L2-01";
-    String parking202 ="L2-02";
-    String parking203 ="L2-03";
-    String parkingspot;
-  
+    String parking101,parking102;
+
+
    String test2,test;
     BackgroundWorkerParkingStructure (Context ctx) {
         context = ctx;
@@ -93,24 +88,11 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
     @Override
     protected void onPreExecute(){
     //    alertDialog = new AlertDialog.Builder(context).create();
-      //  alertDialog.setTitle("Your Reservation ID : ");
+      //  alertDialog.setTitle(": ");
     }
     @Override
     protected void onPostExecute(String result) {
-        /**  alertDialog = new AlertDialog.Builder(context).create();
-         alertDialog.setTitle("Your Reservation ID : ");
-         alertDialog.setMessage(result);
-         alertDialog.show();
-         super.onPostExecute(result); **/
 
-        /**  if(parking101.equals(result.toString())){
-         parking101 ="O";
-         parking102 = "O";
-         }
-         else{
-         parking101="E";
-         parking102="E";
-         } **/
         super.onPostExecute(result);
 
         try {
@@ -120,20 +102,7 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
                 JSONObject j = c.getJSONObject(i);
                 test = j.getString("parkingspot");
 
-          /**      if(test2.equals("L1-01")){
-                    parking101 ="O";
-                      parking102 = "O";
-                    test ="a";
-                }
-                else{
-                    parking101="E";
-                    parking102="E";
-                    test ="tgse";
-                } **/
             }
-
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
