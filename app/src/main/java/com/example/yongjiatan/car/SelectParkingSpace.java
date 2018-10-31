@@ -16,6 +16,7 @@ public class SelectParkingSpace extends AppCompatActivity {
     int status = 0;
     String time,userid;
     TextView L101,L102,L103;
+    String TEXT1,TEXT2,TEXT3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class SelectParkingSpace extends AppCompatActivity {
         carparkL101.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String TEXT1 ="L1-01";
+                     TEXT1 ="L1-01";
                    BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
                     Worker.execute(TEXT1,userid,time);
                     Toast.makeText(getApplicationContext(), "L1-01 has been reserved.." ,  Toast.LENGTH_SHORT).show();
@@ -56,7 +57,7 @@ public class SelectParkingSpace extends AppCompatActivity {
         carparkL102.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String TEXT2 ="L1-02";
+                 TEXT2 ="L1-02";
                 BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
                 Worker.execute(TEXT2,userid,time);
                 Toast.makeText(getApplicationContext(), "L1-02 has been reserved.." ,  Toast.LENGTH_SHORT).show();
@@ -70,7 +71,7 @@ public class SelectParkingSpace extends AppCompatActivity {
         carparkL103.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String TEXT3 ="L1-03";
+                 TEXT3 ="L1-03";
                 BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
                 Worker.execute(TEXT3,userid,time);
                 Toast.makeText(getApplicationContext(), "L1-03 has been reserved.." ,  Toast.LENGTH_SHORT).show();

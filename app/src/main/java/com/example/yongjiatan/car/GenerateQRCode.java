@@ -45,7 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class GenerateQRCode extends AppCompatActivity {
-    String checkin,time,data;
+    String checkin,time,data,parkingspot;
     String userid, rid;
     EditText text;
     ImageView image;
@@ -64,7 +64,7 @@ public class GenerateQRCode extends AppCompatActivity {
         rid = getIntent().getExtras().getString("rid");
         time = getIntent().getExtras().getString("time");
         data =getIntent().getExtras().getString("data");
-
+        parkingspot = getIntent().getExtras().getString("parkingspot");
 
         Button cancel_btn = (Button) findViewById(R.id.cancelBtn);
         cancel_btn.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +85,8 @@ public class GenerateQRCode extends AppCompatActivity {
                         switch(which){
                             case DialogInterface.BUTTON_POSITIVE:
                                 // User clicked the Yes button
-
+                                BackgroundCancellation Worker = new BackgroundCancellation(GenerateQRCode.this);
+                                Worker.execute(rid);
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -249,6 +250,7 @@ public class GenerateQRCode extends AppCompatActivity {
             intent.putExtra("checkin", checkin);
               intent.putExtra("rid", rid);
             intent.putExtra("time", time);
+            intent.putExtra("parkingspot", parkingspot);
             startActivity(intent);
         }
     }

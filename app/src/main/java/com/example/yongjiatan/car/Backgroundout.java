@@ -2,7 +2,9 @@ package com.example.yongjiatan.car;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,7 +23,8 @@ public class Backgroundout extends AsyncTask<String,Void,String> {
     AlertDialog alertDialog;
     String rid, timeout;
     String parkingspot;
-
+String newparkingspot=null;
+String newrid= null;
     Backgroundout(Context ctx) {
         context = ctx;
     }
@@ -54,7 +57,6 @@ public class Backgroundout extends AsyncTask<String,Void,String> {
                 result += line;
             }
             bufferedReader.close();
-            ;
             inputStream.close();
             httpURLConnection.disconnect();
 
@@ -92,19 +94,13 @@ public class Backgroundout extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPreExecute() {
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("You have successfully checked out.");
-    }
-
-    @Override
     protected void onPostExecute(String result) {
-        if (result.toString().equals("Have a nice day")) {
-            alertDialog.setMessage(result);
-            alertDialog.show();
-            //   Intent intent = new Intent(context, Homepage.class);
-            //  context.startActivity(intent);
-        }
+        Toast.makeText(context, "Have a nice day", Toast.LENGTH_SHORT).show();
+              Intent intent = new Intent(context, Homepage.class);
+        intent.putExtra("rid", newrid);
+        intent.putExtra("parkingspot", newparkingspot);
+            context.startActivity(intent);
+
     }
 }
 

@@ -61,25 +61,30 @@ public class EditProfile extends AppCompatActivity {
         Email = (EditText) findViewById(R.id.Uemail);
         Email.setText(e);
 
-    }
-
-    public void OnUpdate(View view) {
         if(!validatePassword(Password.getText().toString())||Password.getText().toString().length()<8){
-           Password.setError("Password must be at least 8 characters,one number,one special character and upper case letter ");
+            Password.setError("Password must be at least 8 characters,one number,one special character and upper case letter ");
             Password.requestFocus();
         }
         if(!validateEmail(Email.getText().toString())) {
             Email.setError("Email must have valid email format.Please try again!");
             Email.requestFocus();
         }
-        String MPassword = Password.getText().toString();
-        String MName = Name.getText().toString();
-        String MContactno = ContactNo.getText().toString();
-        String MDateofbirth = DateOfBirth.getText().toString();
-        String MEmail = Email.getText().toString();
+    }
 
-        BackgroundUpdate backgroundWorker = new BackgroundUpdate(this);
-        backgroundWorker.execute(userid, MPassword, MName, MContactno, MDateofbirth, MEmail);
+    public void OnUpdate(View view) {
+        if ((!validatePassword(Password.getText().toString()) || Password.getText().toString().length() < 8)
+                && (!validateEmail(Email.getText().toString()))) {
+            Toast.makeText(getApplicationContext(), "Please enter valid format", Toast.LENGTH_SHORT).show();
+        } else {
+            String MPassword = Password.getText().toString();
+            String MName = Name.getText().toString();
+            String MContactno = ContactNo.getText().toString();
+            String MDateofbirth = DateOfBirth.getText().toString();
+            String MEmail = Email.getText().toString();
+
+            BackgroundUpdate backgroundWorker = new BackgroundUpdate(this);
+            backgroundWorker.execute(userid, MPassword, MName, MContactno, MDateofbirth, MEmail);
+        }
     }
     protected boolean validatePassword(String password) {
 

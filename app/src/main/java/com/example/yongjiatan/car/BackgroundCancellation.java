@@ -1,9 +1,9 @@
 package com.example.yongjiatan.car;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -21,24 +21,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class BackgroundQRCode extends AsyncTask<String,Void,String> {
+public class BackgroundCancellation extends AsyncTask<String,Void,String> {
     Context context;
-    String rid,time,parkingspot;
-    String DATE, TIME, LOCATION,data;
-
-    BackgroundQRCode (Context ctx) {
+    String rid;
+String newrid=null;
+    BackgroundCancellation (Context ctx) {
         context = ctx;
     }
     @Override
     protected String doInBackground(String... params) {
         rid = params[0];
-       time = params[1];
-       parkingspot = params[2];
-        String getdata_url = "http://192.168.137.1/getdata.php";
+
+        String cancel_url = "http://192.168.137.1/cancel.php";
 
         try {
 
-            URL url = new URL(getdata_url);
+            URL url = new URL(cancel_url);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
@@ -71,32 +69,11 @@ public class BackgroundQRCode extends AsyncTask<String,Void,String> {
 
         return null;
     }
-
     @Override
     protected void onPostExecute(String result) {
-        try {
-
-            JSONObject c = new JSONObject(result);
-
-
-            for (int i = 0; i < c.length(); i++) {
-                DATE = c.getString("date");
-                TIME = c.getString("time");
-                LOCATION = c.getString("parkingstructure");
-                data = "Date: " + DATE + "\n Time: " + TIME + "\n Location: " + LOCATION;
-
-
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+          Intent intent = new Intent(context,Homepage.class);
+          intent.putExtra("rid",newrid);
+          context.startActivity(intent);
         }
-        Intent intent = new Intent(context, GenerateQRCode.class);
-        intent.putExtra("data", data);
-        intent.putExtra("rid", rid);
-        intent.putExtra("time", time);
-        intent.putExtra("parkingspot", parkingspot);
-       context.startActivity(intent);
-    }
 }
-

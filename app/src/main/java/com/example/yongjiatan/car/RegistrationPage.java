@@ -25,9 +25,6 @@ public class RegistrationPage extends AppCompatActivity {
         contactNo = (EditText) findViewById(R.id.Econtactno);
         dateOfBirth = (EditText) findViewById(R.id.Edate);
 
-    }
-
-    public void OnRegister(View view) {
         if(!validateUserID(userid.getText().toString())) {
             userid.setError("UserID length must be minimum character 5 ");
             userid.requestFocus();
@@ -42,15 +39,24 @@ public class RegistrationPage extends AppCompatActivity {
             email.requestFocus();
         }
 
-        String  RUserid = userid.getText().toString();
-        String RPassword = password.getText().toString();
-        String RName = name.getText().toString();
-        String REmail = email.getText().toString();
-        String RContactno = contactNo.getText().toString();
-        String RDateofbirth = dateOfBirth.getText().toString();
-        String type = "register";
-        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-        backgroundWorker.execute(type, RUserid, RPassword, RName,RContactno, RDateofbirth, REmail );
+    }
+
+    public void OnRegister(View view) {
+        if ((!validatePassword(password.getText().toString()) || password.getText().toString().length() < 8)
+                && (!validateEmail(email.getText().toString())) && (!validateUserID(userid.getText().toString()))) {
+            Toast.makeText(getApplicationContext(), "Please enter valid format", Toast.LENGTH_SHORT).show();
+        } else {
+
+            String RUserid = userid.getText().toString();
+            String RPassword = password.getText().toString();
+            String RName = name.getText().toString();
+            String REmail = email.getText().toString();
+            String RContactno = contactNo.getText().toString();
+            String RDateofbirth = dateOfBirth.getText().toString();
+            String type = "register";
+            BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+            backgroundWorker.execute(type, RUserid, RPassword, RName, RContactno, RDateofbirth, REmail);
+        }
     }
     protected boolean validatePassword(String password) {
 

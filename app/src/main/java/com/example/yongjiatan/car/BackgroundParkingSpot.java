@@ -25,7 +25,7 @@ import java.net.URLEncoder;
 public class BackgroundParkingSpot extends AsyncTask<String,Void,String> {
     AlertDialog alertDialog;
         Context context;
-   // JSONObject id;
+
         String parkingspot,time,userid;
         BackgroundParkingSpot (Context ctx) {
             context = ctx;
@@ -84,14 +84,8 @@ public class BackgroundParkingSpot extends AsyncTask<String,Void,String> {
             alertDialog.show();
             super.onPostExecute(result);
 
-       Intent intent = new Intent (context,Homepage.class);
-       intent.putExtra("rid", result);
-          intent.putExtra("time", time);
-          intent.putExtra("userid", userid);
-          intent.putExtra("parkingspot", parkingspot);
-
-            context.startActivity(intent);
-
+            BackgroundUpdateSpot Worker = new BackgroundUpdateSpot(context);
+            Worker.execute(result,time,userid,parkingspot);
 
         }
 

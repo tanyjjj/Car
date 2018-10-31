@@ -25,6 +25,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.Result;
@@ -96,11 +97,16 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
         super.onPostExecute(result);
 
         try {
-            JSONArray c = new JSONArray(result);
-            for (int i = 0; i < c.length(); i++) {
+            List<String> spotNumbers = new ArrayList<>();
 
-                JSONObject j = c.getJSONObject(i);
-                test = j.getString("parkingspot");
+            JSONArray spots = new JSONArray(result);
+            for (int i = 0; i < spots.length(); i++) {
+
+                JSONObject spot = spots.getJSONObject(i);
+                // String test
+                test = spot.getString("parkingspot");
+
+                spotNumbers.add(test);
 
             }
         } catch (JSONException e) {
@@ -110,7 +116,7 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
         Intent intent = new Intent (context, SelectParkingSpace.class);
         intent.putExtra("time", time);
         intent.putExtra("userid",userid);
-        intent.putExtra("parking101",parking101);
+        intent.putExtra("parking101",test);
         intent.putExtra("parking102",result);
         context.startActivity(intent);
 

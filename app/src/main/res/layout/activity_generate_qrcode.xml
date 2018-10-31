@@ -68,13 +68,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="261dp"
-        android:layout_marginLeft="261dp"
+        android:layout_marginStart="242dp"
+        android:layout_marginLeft="242dp"
         android:layout_marginTop="27dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="44dp"
-        android:text="Scanned" />
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="53dp"
+        android:text="Check-In" />
 
     <Button
         android:id="@+id/cancelBtn"
@@ -83,9 +83,9 @@
         android:layout_alignBottom="@+id/checkin_Btn"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginBottom="0dp"
         android:text="Cancel Reservation" />
 
 </RelativeLayout>
