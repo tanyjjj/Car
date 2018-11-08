@@ -23,7 +23,7 @@ import java.net.URLEncoder;
 
 public class BackgroundQRCode extends AsyncTask<String,Void,String> {
     Context context;
-    String rid,time,parkingspot;
+    String rid,time,parkingspot,userid;
     String DATE, TIME, LOCATION,data;
 
     BackgroundQRCode (Context ctx) {
@@ -34,6 +34,7 @@ public class BackgroundQRCode extends AsyncTask<String,Void,String> {
         rid = params[0];
        time = params[1];
        parkingspot = params[2];
+       userid = params[3];
         String getdata_url = "http://192.168.137.1/getdata.php";
 
         try {
@@ -96,6 +97,7 @@ public class BackgroundQRCode extends AsyncTask<String,Void,String> {
         intent.putExtra("rid", rid);
         intent.putExtra("time", time);
         intent.putExtra("parkingspot", parkingspot);
+        intent.putExtra("userid", userid);
        context.startActivity(intent);
     }
 }

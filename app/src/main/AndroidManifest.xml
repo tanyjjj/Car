@@ -34,6 +34,7 @@
             android:value="barcode" />
 
         <activity android:name=".GenerateQRCode" />
+        <activity android:name=".SelectParkingSpaceSecond" />
     </application>
 
 </manifest>

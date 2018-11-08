@@ -130,16 +130,11 @@ public class ParkingStructure extends AppCompatActivity {
             }else {
                 am_pm="PM";
                 mDisplayTime.setText(hour+":"+m+" "+am_pm);
-
-
             }
                     storetime = hour +":" +minute+":"+"00";
            }
             },Hour,Minute ,true);
-
-
           timePickerDialog.show();
-
             }
                 });
 

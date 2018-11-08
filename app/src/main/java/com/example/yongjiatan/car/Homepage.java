@@ -88,7 +88,7 @@ public class Homepage extends AppCompatActivity {
             alertDialogB.show();
         } else {
             BackgroundQRCode backgroundWorker = new BackgroundQRCode(this);
-            backgroundWorker.execute(rid,time,parkingspot);
+            backgroundWorker.execute(rid,time,parkingspot,userid);
         }
     }
 
@@ -121,6 +121,7 @@ public class Homepage extends AppCompatActivity {
                     goToCheckOut.putExtra("time", time);
                     goToCheckOut.putExtra("checkin", checkin);
                     goToCheckOut.putExtra("parkingspot", parkingspot);
+                    goToCheckOut.putExtra("userid", userid);
                     startActivity(goToCheckOut);
                 }
             }

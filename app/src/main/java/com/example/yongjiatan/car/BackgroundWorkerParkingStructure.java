@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.yongjiatan.car.Homepage;
@@ -19,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,10 +36,11 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
     Context context;
     AlertDialog alertDialog;
     String time,userid;
-    String parking101,parking102;
-
-
-   String test2,test;
+    String parking101,parking102,parking103;
+    String[] array;
+    ArrayList<String> list;
+    String[] parkingStore;
+    int size;
     BackgroundWorkerParkingStructure (Context ctx) {
         context = ctx;
     }
@@ -97,27 +100,27 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
         super.onPostExecute(result);
 
         try {
-            List<String> spotNumbers = new ArrayList<>();
 
+            list = new ArrayList<String>();
             JSONArray spots = new JSONArray(result);
             for (int i = 0; i < spots.length(); i++) {
+                {
+                    list.add(spots.get(i).toString());
 
-                JSONObject spot = spots.getJSONObject(i);
-                // String test
-                test = spot.getString("parkingspot");
+                    parkingStore = new String[list.size()];
+                    parkingStore = list.toArray(parkingStore);
 
-                spotNumbers.add(test);
-
+                }
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Intent intent = new Intent (context, SelectParkingSpace.class);
+       Intent intent = new Intent (context, SelectParkingSpace.class);
         intent.putExtra("time", time);
         intent.putExtra("userid",userid);
-        intent.putExtra("parking101",test);
-        intent.putExtra("parking102",result);
+        intent.putStringArrayListExtra("parking",list);
         context.startActivity(intent);
 
     }

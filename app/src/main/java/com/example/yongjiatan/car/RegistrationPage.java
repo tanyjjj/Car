@@ -35,17 +35,57 @@ public class RegistrationPage extends AppCompatActivity {
             password.requestFocus();
         }
         if(!validateEmail(email.getText().toString())) {
-            email.setError("Email must have valid email format.Please try again!");
+            email.setError("Please enter valid email format!");
             email.requestFocus();
+        }
+        if(!validateName(name.getText().toString())) {
+            name.setError("PLease enter your name");
+            name.requestFocus();
+        }
+        if(!validateContact(contactNo.getText().toString())) {
+            contactNo.setError("PLease enter your phone number");
+            contactNo.requestFocus();
+        }
+        if(!validateDate(dateOfBirth.getText().toString())) {
+            dateOfBirth.setError("PLease enter your date of birth");
+            dateOfBirth.requestFocus();
         }
 
     }
 
     public void OnRegister(View view) {
+        if(!validateUserID(userid.getText().toString())) {
+            userid.setError("UserID length must be minimum character 5 ");
+            userid.requestFocus();
+        }
+        //password.getText().toString().length()<8 &&
+        if(!validatePassword(password.getText().toString())||password.getText().toString().length()<8){
+            password.setError("Password must be at least 8 characters,one number,one special character and upper case letter ");
+            password.requestFocus();
+        }
+        if(!validateEmail(email.getText().toString())) {
+            email.setError("Email must have valid email format.Please try again!");
+            email.requestFocus();
+        }
+
         if ((!validatePassword(password.getText().toString()) || password.getText().toString().length() < 8)
-                && (!validateEmail(email.getText().toString())) && (!validateUserID(userid.getText().toString()))) {
+                && (!validateEmail(email.getText().toString())) && (!validateUserID(userid.getText().toString()))&&(password.getText().toString()=="")&&(userid.getText().toString()=="")) {
             Toast.makeText(getApplicationContext(), "Please enter valid format", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        if(!validateName(name.getText().toString())) {
+            name.setError("PLease enter your name");
+           name.requestFocus();
+        }
+        if(!validateContact(contactNo.getText().toString())) {
+            contactNo.setError("PLease enter valid phone number");
+            contactNo.requestFocus();
+        }
+        if(!validateDate(dateOfBirth.getText().toString())) {
+            dateOfBirth.setError("PLease enter your date of birth");
+            dateOfBirth.requestFocus();
+        }
+
+        else {
 
             String RUserid = userid.getText().toString();
             String RPassword = password.getText().toString();
@@ -88,5 +128,33 @@ public class RegistrationPage extends AppCompatActivity {
         }
 
     }
+    protected boolean validateName(String Name) {
+
+        if(Name.length()==0){
+            return false;
+
+        }else {
+            return true;
+        }
+    }
+    protected boolean validateContact(String contactNo) {
+
+        if( contactNo.length()!=10){
+            return false;
+
+        }else {
+            return true;
+        }
+    }
+    protected boolean validateDate(String dateOfBirth) {
+
+        if (dateOfBirth.length() != 10) {
+            return false;
+
+        } else {
+            return true;
+        }
+    }
+
 
 }

@@ -36,7 +36,7 @@ public class EditProfile extends AppCompatActivity {
     EditText Password, Name, ContactNo, DateOfBirth, Email;
     String userid;
     String p, n, cn, d, e;
-    ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,42 +72,92 @@ public class EditProfile extends AppCompatActivity {
     }
 
     public void OnUpdate(View view) {
-        if ((!validatePassword(Password.getText().toString()) || Password.getText().toString().length() < 8)
-                && (!validateEmail(Email.getText().toString()))) {
-            Toast.makeText(getApplicationContext(), "Please enter valid format", Toast.LENGTH_SHORT).show();
-        } else {
+
+        if(!validatePassword(Password.getText().toString())||Password.getText().toString().length()<8){
+            Password.setError("Password must be at least 8 characters,one number,one special character and upper case letter ");
+            Password.requestFocus();
+        }
+        else if(!validateEmail(Email.getText().toString())) {
+            Email.setError("Email must have valid email format.Please try again!");
+            Email.requestFocus();
+        }
+       else if(!validateName(Name.getText().toString())) {
+            Name.setError("PLease enter your name");
+            Name.requestFocus();
+        }
+        else if(!validateContact(ContactNo.getText().toString())) {
+           ContactNo.setError("PLease enter your contact number");
+            ContactNo.requestFocus();
+        }
+        else if(!validateDate(DateOfBirth.getText().toString())) {
+            DateOfBirth.setError("PLease enter your date of birth");
+            DateOfBirth.requestFocus();
+        }
+
+        else {
             String MPassword = Password.getText().toString();
             String MName = Name.getText().toString();
             String MContactno = ContactNo.getText().toString();
             String MDateofbirth = DateOfBirth.getText().toString();
             String MEmail = Email.getText().toString();
-
             BackgroundUpdate backgroundWorker = new BackgroundUpdate(this);
             backgroundWorker.execute(userid, MPassword, MName, MContactno, MDateofbirth, MEmail);
         }
     }
-    protected boolean validatePassword(String password) {
+    protected boolean validatePassword(String Password) {
 
         Pattern pattern;
         Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        final String PASSWORD_PATTERN =  "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{5,10})";
         pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
+        matcher = pattern.matcher(Password);
 
         return matcher.matches();
 
     }
 
 
-    protected boolean validateEmail(String email) {
+    protected boolean validateEmail(String Email) {
         String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
         Pattern pattern = Pattern.compile(emailPattern);
-        Matcher matcher = pattern.matcher(email);
+        Matcher matcher = pattern.matcher(Email);
 
         return matcher.matches();
     }
+
+    protected boolean validateName(String Name) {
+
+        if(Name.length()==0){
+            return false;
+
+        }else {
+            return true;
+        }
+    }
+    protected boolean validateContact(String ContactNo) {
+
+        if( ContactNo.length()!=10){
+            return false;
+
+        }else {
+            return true;
+        }
+
+    }
+    protected boolean validateDate(String DateOfBirth) {
+
+        if (DateOfBirth.length() != 10) {
+            return false;
+
+        } else {
+            return true;
+        }
+
+    }
+
+
     private class BackgroundUpdate extends AsyncTask<String, Void, String> {
         AlertDialog alertDialog;
         Context context;
@@ -177,12 +227,13 @@ public class EditProfile extends AppCompatActivity {
             if (Result.toString().equals("Your Profile has been successfully updated~")) {
 
                 Intent intent = new Intent (EditProfile.this, Homepage.class);
+                intent.putExtra("userid", userid);
                 context.startActivity(intent);
             } else
             {
                 alertDialog.setMessage(Result);
                 alertDialog.show();
-          //      alertDialog.setMessage("PLease enter valid input!!");
+                //      alertDialog.setMessage("PLease enter valid input!!");
             }
         }
     }

@@ -21,7 +21,7 @@ import java.net.URLEncoder;
 public class Backgroundout extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
-    String rid, timeout;
+    String rid, timeout,userid;
     String parkingspot;
 String newparkingspot=null;
 String newrid= null;
@@ -33,6 +33,7 @@ String newrid= null;
         timeout = params[0];
         rid = params[1];
         parkingspot = params[2];
+        userid = params[3];
         String updatetime_url = "http://192.168.137.1/updatetime.php";
         String updatestatus_url = "http://192.168.137.1/parkingspotcheckout.php";
         try {
@@ -99,6 +100,7 @@ String newrid= null;
               Intent intent = new Intent(context, Homepage.class);
         intent.putExtra("rid", newrid);
         intent.putExtra("parkingspot", newparkingspot);
+        intent.putExtra("userid", userid);
             context.startActivity(intent);
 
     }

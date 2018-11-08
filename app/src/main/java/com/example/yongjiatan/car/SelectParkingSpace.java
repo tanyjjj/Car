@@ -10,91 +10,102 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class SelectParkingSpace extends AppCompatActivity {
     Button carparkL101,carparkL102,carparkL103;
     String parking101,parking102;
-    int status = 0;
+
     String time,userid;
-    TextView L101,L102,L103;
+
     String TEXT1,TEXT2,TEXT3;
+    ArrayList<String> resultArray;
+    String[] carpark;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_parking_space);
         userid = getIntent().getExtras().getString("userid");
         time = getIntent().getExtras().getString("time");
-        parking101 = getIntent().getExtras().getString("parking101");
-        parking102 = getIntent().getExtras().getString("parking102");
+    resultArray=  getIntent().getStringArrayListExtra("parking");
 
-        TextView Testing = (TextView) findViewById(R.id.trya);
-          Testing.setText(parking101+parking102);
-
-
+        carpark = new String[resultArray.size()];
         final Button firstButton = (Button) findViewById(R.id.levelBtn1);
         Button secondButton = (Button) findViewById(R.id.levelBtn2);
+        firstButton.setEnabled(false);
 
-
-        L101 = (TextView)findViewById(R.id.trya);
 
         carparkL101 = (Button)findViewById(R.id.carpark101);
+        for (int k = 0; k < resultArray.size();k++) {
+            carpark[k] = resultArray.get(k);
+            if(carpark[k].contains("L1-01")){
 
-        carparkL101.setEnabled(true);
-        carparkL101.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                     TEXT1 ="L1-01";
-                   BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                    Worker.execute(TEXT1,userid,time);
-                    Toast.makeText(getApplicationContext(), "L1-01 has been reserved.." ,  Toast.LENGTH_SHORT).show();
-                    carparkL101.setEnabled(false);
+                carparkL101.setEnabled(false);
+            } else{
+                carparkL101.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-
+                        TEXT1 = "L1-01";
+                        BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
+                        Worker.execute(TEXT1, userid, time);
+                        Toast.makeText(getApplicationContext(), "L1-01 has been reserved..", Toast.LENGTH_SHORT).show();
+                        carparkL101.setEnabled(false);
+                    }
+                });
             }
-            });
-        L102 = (TextView)findViewById(R.id.S102);
+        }
+
         carparkL102 = (Button)findViewById(R.id.carpark102);
-        carparkL102.setEnabled(true);
-        carparkL102.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 TEXT2 ="L1-02";
-                BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                Worker.execute(TEXT2,userid,time);
-                Toast.makeText(getApplicationContext(), "L1-02 has been reserved.." ,  Toast.LENGTH_SHORT).show();
-                carparkL101.setEnabled(false);
+        for (int k = 0; k < resultArray.size();k++) {
+            carpark[k] = resultArray.get(k);
+            if (carpark[k].contains("L1-02")) {
+                carparkL102.setEnabled(false);
+            } else {
+                carparkL102.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TEXT2 = "L1-02";
+                        BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
+                        Worker.execute(TEXT2, userid, time);
+                        Toast.makeText(getApplicationContext(), "L1-02 has been reserved..", Toast.LENGTH_SHORT).show();
+                        carparkL102.setEnabled(false);
+                    }
+                });
             }
-        });
+        }
 
-        L103 = (TextView)findViewById(R.id.S103);
         carparkL103 = (Button)findViewById(R.id.carpark103);
-        carparkL103.setEnabled(true);
-        carparkL103.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 TEXT3 ="L1-03";
-                BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                Worker.execute(TEXT3,userid,time);
-                Toast.makeText(getApplicationContext(), "L1-03 has been reserved.." ,  Toast.LENGTH_SHORT).show();
-                carparkL101.setEnabled(false);
+        for (int k = 0; k < resultArray.size();k++) {
+            carpark[k] = resultArray.get(k);
+            if (carpark[k].contains("L1-03")) {
+                carparkL103.setEnabled(false);
+            } else {
+                carparkL103.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TEXT3 = "L1-03";
+                        BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
+                        Worker.execute(TEXT3, userid, time);
+                        Toast.makeText(getApplicationContext(), "L1-03 has been reserved..", Toast.LENGTH_SHORT).show();
+                        carparkL103.setEnabled(false);
+                    }
+                });
             }
-        });
-        firstButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toastMessage("Clicked Level 1 Car Park");
-            }
-        });
+        }
 
         secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toastMessage("Clicked Level 2 Car Park");
-
+             Intent intent = new Intent(getApplicationContext(),SelectParkingSpaceSecond.class);
+           intent.putExtra("time", time);
+             intent.putExtra("userid",userid);
+            intent.putStringArrayListExtra("parking",resultArray);
+                startActivity(intent);
             }
         });
-
     }
-
 
     private void toastMessage(String message){
         Toast.makeText(SelectParkingSpace.this, message, Toast.LENGTH_SHORT).show();

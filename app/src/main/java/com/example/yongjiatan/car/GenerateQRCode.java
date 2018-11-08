@@ -86,7 +86,7 @@ public class GenerateQRCode extends AppCompatActivity {
                             case DialogInterface.BUTTON_POSITIVE:
                                 // User clicked the Yes button
                                 BackgroundCancellation Worker = new BackgroundCancellation(GenerateQRCode.this);
-                                Worker.execute(rid);
+                                Worker.execute(rid,userid);
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -163,7 +163,7 @@ public class GenerateQRCode extends AppCompatActivity {
 
                     if (currenttime.before(newReserveTime)) {
                         BackgroundRun runner = new BackgroundRun();
-                        runner.execute(checkin, rid);
+                        runner.execute(checkin, rid,userid);
                     } /**else if (currenttime.after(reservetime)) {
                      Toast.makeText(getApplicationContext(), "Your Reservation expired", Toast.LENGTH_SHORT).show();
                      } else if(currenttime.before(reservetime)) {
@@ -200,6 +200,7 @@ public class GenerateQRCode extends AppCompatActivity {
 
             checkin = params[0];
             rid = params[1];
+            userid = params[2];
             String retrieve_url = "http://192.168.137.1/updatecheckin.php";
 
             try {
@@ -248,9 +249,10 @@ public class GenerateQRCode extends AppCompatActivity {
             alertDialog.setMessage(checkin);
             Intent intent = new Intent(GenerateQRCode.this, Homepage.class);
             intent.putExtra("checkin", checkin);
-              intent.putExtra("rid", rid);
+            intent.putExtra("rid", rid);
             intent.putExtra("time", time);
             intent.putExtra("parkingspot", parkingspot);
+            intent.putExtra("userid", userid);
             startActivity(intent);
         }
     }

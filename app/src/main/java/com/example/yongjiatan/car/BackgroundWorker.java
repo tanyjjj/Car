@@ -136,11 +136,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
          Intent intent = new Intent (context, Login.class);
          context.startActivity(intent);
      }
-     else
-     {
-         alertDialog.setMessage(result);
-         alertDialog.show();
-     }
+
     }
 
     @Override

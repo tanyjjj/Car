@@ -23,7 +23,7 @@ import java.net.URLEncoder;
 
 public class BackgroundCancellation extends AsyncTask<String,Void,String> {
     Context context;
-    String rid;
+    String rid,userid;
 String newrid=null;
     BackgroundCancellation (Context ctx) {
         context = ctx;
@@ -31,7 +31,7 @@ String newrid=null;
     @Override
     protected String doInBackground(String... params) {
         rid = params[0];
-
+        userid = params[1];
         String cancel_url = "http://192.168.137.1/cancel.php";
 
         try {
@@ -74,6 +74,7 @@ String newrid=null;
         Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
           Intent intent = new Intent(context,Homepage.class);
           intent.putExtra("rid",newrid);
+        intent.putExtra("userid",userid);
           context.startActivity(intent);
         }
 }
