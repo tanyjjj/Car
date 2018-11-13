@@ -22,7 +22,7 @@ public class Backgroundout extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
     String rid, timeout,userid;
-    String parkingspot;
+    String parkingspot,totalParkingFee2;
 String newparkingspot=null;
 String newrid= null;
     Backgroundout(Context ctx) {
@@ -34,6 +34,7 @@ String newrid= null;
         rid = params[1];
         parkingspot = params[2];
         userid = params[3];
+        totalParkingFee2 = params[4];
         String updatetime_url = "http://192.168.137.1/updatetime.php";
         String updatestatus_url = "http://192.168.137.1/parkingspotcheckout.php";
         try {
@@ -96,11 +97,11 @@ String newrid= null;
 
     @Override
     protected void onPostExecute(String result) {
-        Toast.makeText(context, "Have a nice day", Toast.LENGTH_SHORT).show();
-              Intent intent = new Intent(context, Homepage.class);
+              Intent intent = new Intent(context, PaymentPage.class);
         intent.putExtra("rid", newrid);
         intent.putExtra("parkingspot", newparkingspot);
         intent.putExtra("userid", userid);
+        intent.putExtra("totalParkingFee2", totalParkingFee2);
             context.startActivity(intent);
 
     }

@@ -86,7 +86,7 @@ public class GenerateQRCode extends AppCompatActivity {
                             case DialogInterface.BUTTON_POSITIVE:
                                 // User clicked the Yes button
                                 BackgroundCancellation Worker = new BackgroundCancellation(GenerateQRCode.this);
-                                Worker.execute(rid,userid);
+                                Worker.execute(rid,userid,parkingspot);
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

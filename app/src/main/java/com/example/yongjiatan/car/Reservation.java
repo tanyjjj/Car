@@ -12,6 +12,7 @@ public class Reservation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         userid = getIntent().getExtras().getString("userid");
         setContentView(R.layout.activity_reservation);
+        this.setTitle("Parking tUTORIAL");
     }
 
     public void JumpToParkingStructure(View view) {

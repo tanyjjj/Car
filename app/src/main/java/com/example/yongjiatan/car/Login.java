@@ -79,6 +79,10 @@ public class Login extends AppCompatActivity implements TextWatcher,CompoundButt
         }
     }
     public void OnLogin(View view){
+
+        if(useridLogin.getText().toString()=="admin123"){
+
+        }
         String useridlogin = useridLogin.getText().toString();
         String passwordlogin = passwordLogin.getText().toString();
         String type ="login";

@@ -2,6 +2,7 @@ package com.example.yongjiatan.car;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,11 +30,11 @@ public class SelectParkingSpace extends AppCompatActivity {
         time = getIntent().getExtras().getString("time");
     resultArray=  getIntent().getStringArrayListExtra("parking");
 
+
         carpark = new String[resultArray.size()];
         final Button firstButton = (Button) findViewById(R.id.levelBtn1);
         Button secondButton = (Button) findViewById(R.id.levelBtn2);
         firstButton.setEnabled(false);
-
 
         carparkL101 = (Button)findViewById(R.id.carpark101);
         for (int k = 0; k < resultArray.size();k++) {
@@ -41,6 +42,7 @@ public class SelectParkingSpace extends AppCompatActivity {
             if(carpark[k].contains("L1-01")){
 
                 carparkL101.setEnabled(false);
+                carparkL101.setBackgroundColor(Color.RED);
             } else{
                 carparkL101.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -61,6 +63,7 @@ public class SelectParkingSpace extends AppCompatActivity {
             carpark[k] = resultArray.get(k);
             if (carpark[k].contains("L1-02")) {
                 carparkL102.setEnabled(false);
+                carparkL102.setBackgroundColor(Color.RED);
             } else {
                 carparkL102.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -80,6 +83,7 @@ public class SelectParkingSpace extends AppCompatActivity {
             carpark[k] = resultArray.get(k);
             if (carpark[k].contains("L1-03")) {
                 carparkL103.setEnabled(false);
+                carparkL103.setBackgroundColor(Color.RED);
             } else {
                 carparkL103.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -93,6 +97,8 @@ public class SelectParkingSpace extends AppCompatActivity {
                 });
             }
         }
+
+
 
         secondButton.setOnClickListener(new View.OnClickListener() {
             @Override

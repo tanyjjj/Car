@@ -1,6 +1,7 @@
 package com.example.yongjiatan.car;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -37,6 +38,7 @@ public class SelectParkingSpaceSecond  extends AppCompatActivity {
             carpark[k] = resultArray.get(k);
             if(carpark[k].contains("L2-01")){
                 carparkL201.setEnabled(false);
+                carparkL201.setBackgroundColor(Color.RED);
             } else{
                 carparkL201.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -59,6 +61,7 @@ public class SelectParkingSpaceSecond  extends AppCompatActivity {
             carpark[k] = resultArray.get(k);
             if (carpark[k].contains("L2-02")) {
                 carparkL202.setEnabled(false);
+                carparkL202.setBackgroundColor(Color.RED);
             } else {
                 carparkL202.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -78,6 +81,7 @@ public class SelectParkingSpaceSecond  extends AppCompatActivity {
             carpark[k] = resultArray.get(k);
             if (carpark[k].contains("L2-03")) {
                 carparkL203.setEnabled(false);
+                carparkL203.setBackgroundColor(Color.RED);
             } else {
                 carparkL203.setOnClickListener(new View.OnClickListener() {
                     @Override

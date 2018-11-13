@@ -23,6 +23,7 @@ public class Checkout extends AppCompatActivity {
     Calendar calender;
      double costPerHour =3.00;
      double totalParkingFee,totalhour,totalhourextra;
+    String totalParkingFee2;
 
     TextView test;
     @Override
@@ -72,6 +73,7 @@ totalParkingFee = costPerHour;
         else {
             totalParkingFee = totalhour*costPerHour;
         }
+       totalParkingFee2 = Double.toString(totalParkingFee);
         timeD  = (TextView) findViewById(R.id.timedisplay);
        timeD.setText("Total parking time:"+diffhour+"hour & "+diffmin+"minutes" );
        parking = (TextView) findViewById(R.id.parking_ID);
@@ -82,7 +84,7 @@ totalParkingFee = costPerHour;
 
     public void SubmitParking(View view) {
         Backgroundout backgroundWorker = new Backgroundout(this);
-        backgroundWorker.execute(timeout, rid,parkingspot,userid);
+        backgroundWorker.execute(timeout, rid,parkingspot,userid,totalParkingFee2);
 
     }
 

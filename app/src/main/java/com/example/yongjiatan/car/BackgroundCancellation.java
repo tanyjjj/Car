@@ -23,7 +23,7 @@ import java.net.URLEncoder;
 
 public class BackgroundCancellation extends AsyncTask<String,Void,String> {
     Context context;
-    String rid,userid;
+    String rid,userid,parkingspot;
 String newrid=null;
     BackgroundCancellation (Context ctx) {
         context = ctx;
@@ -32,6 +32,7 @@ String newrid=null;
     protected String doInBackground(String... params) {
         rid = params[0];
         userid = params[1];
+        parkingspot= params[2];
         String cancel_url = "http://192.168.137.1/cancel.php";
 
         try {
@@ -43,7 +44,8 @@ String newrid=null;
             httpURLConnection.setDoInput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            String post_data = URLEncoder.encode("rid", "UTF-8") + "=" + URLEncoder.encode(rid, "UTF-8");
+            String post_data = URLEncoder.encode("rid", "UTF-8") + "=" + URLEncoder.encode(rid, "UTF-8") + "&"
+                    + URLEncoder.encode("parkingspot", "UTF-8") + "=" + URLEncoder.encode(parkingspot, "UTF-8");
 
             bufferedWriter.write(post_data);
             bufferedWriter.flush();
