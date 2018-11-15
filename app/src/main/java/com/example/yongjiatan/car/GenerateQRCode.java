@@ -53,7 +53,6 @@ public class GenerateQRCode extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat;
     Date reservetime,currenttime;
     TextView tv;
-
     Date newReserveTime;
     String newTime;
     @Override
@@ -74,10 +73,8 @@ public class GenerateQRCode extends AppCompatActivity {
 
                 // Set a title for alert dialog
                 builder.setTitle("Select an option");
-
                 // Ask the final question
-                builder.setMessage("Do you want to cancel your car park reservation?");
-
+                builder.setMessage("Do you want to cancel your car park reservation? RM2 of your reservation deposit will be charged amd your reserved parking spot will be forfeited. ");
                 // Set click listener for alert dialog buttons
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -164,11 +161,11 @@ public class GenerateQRCode extends AppCompatActivity {
                     if (currenttime.before(newReserveTime)) {
                         BackgroundRun runner = new BackgroundRun();
                         runner.execute(checkin, rid,userid);
-                    } /**else if (currenttime.after(reservetime)) {
+                    } else if (currenttime.after(reservetime)) {
                      Toast.makeText(getApplicationContext(), "Your Reservation expired", Toast.LENGTH_SHORT).show();
                      } else if(currenttime.before(reservetime)) {
                      Toast.makeText(getApplicationContext(), "Your Reservation Time at" + time, Toast.LENGTH_SHORT).show();
-                     } **/
+                     }
                 }
             }
         });

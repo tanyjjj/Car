@@ -79,16 +79,17 @@ public class Login extends AppCompatActivity implements TextWatcher,CompoundButt
         }
     }
     public void OnLogin(View view){
-
-        if(useridLogin.getText().toString()=="admin123"){
-
+//Admin@FYP2  Admin1997**Aug
+        if(useridLogin.getText().toString().equals("a")&&passwordLogin.getText().toString().equals("b")){
+            Intent gotoAdminHomepage = new Intent(this,AdminHomepage.class);
+            startActivity(gotoAdminHomepage);
+        } else {
+            String useridlogin = useridLogin.getText().toString();
+            String passwordlogin = passwordLogin.getText().toString();
+            String type = "login";
+            BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+            backgroundWorker.execute(type, useridlogin, passwordlogin);
         }
-        String useridlogin = useridLogin.getText().toString();
-        String passwordlogin = passwordLogin.getText().toString();
-        String type ="login";
-        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-        backgroundWorker.execute(type,useridlogin,passwordlogin);
-
     }
 
     public void JumptoRegister(View view)

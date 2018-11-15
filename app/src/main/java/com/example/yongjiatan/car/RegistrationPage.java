@@ -99,17 +99,13 @@ public class RegistrationPage extends AppCompatActivity {
         }
     }
     protected boolean validatePassword(String password) {
-
         Pattern pattern;
         Matcher matcher;
         final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
-
         return matcher.matches();
-
     }
-
 
     protected boolean validateEmail(String email) {
         String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -117,7 +113,6 @@ public class RegistrationPage extends AppCompatActivity {
 
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
-
         return matcher.matches();
     }
     protected boolean validateUserID(String userid) {

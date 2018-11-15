@@ -32,8 +32,6 @@ public class Homepage extends AppCompatActivity {
         checkin = getIntent().getExtras().getString("checkin");
         parkingspot = getIntent().getExtras().getString("parkingspot");
 
-       // TextView a = (TextView) findViewById(R.id.b);
- //   a.setText(parkingspot+rid+time+checkin);
         final TextView scan = (TextView) findViewById(R.id.scanText);
         final Activity activity = this;
         scan.setOnClickListener(new View.OnClickListener() {
