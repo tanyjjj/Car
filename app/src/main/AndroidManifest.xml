@@ -55,7 +55,8 @@
         <activity android:name=".PaymentPage" />
         <activity android:name=".AdminHomepage" />
         <activity android:name=".AdminView" />
-        <activity android:name=".ManageUser"></activity>
+        <activity android:name=".ManageUser" />
+        <activity android:name=".AdminModifyStatus"></activity>
     </application>
 
 </manifest>

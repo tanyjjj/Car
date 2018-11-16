@@ -38,7 +38,7 @@ public class ParkingStructure extends AppCompatActivity {
     private TextView mDisplayTime;
     private static final String TAG = "ParkingStructure";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-
+int selectedHour,selectedMinute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,11 +101,46 @@ public class ParkingStructure extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Calendar currentTime= Calendar.getInstance();
-           final int Hour = currentTime.get(Calendar.HOUR_OF_DAY);
-           final int Minute = currentTime.get(Calendar.MINUTE);
-        final TimePickerDialog  timePickerDialog = new TimePickerDialog(ParkingStructure.this, new TimePickerDialog.OnTimeSetListener() {
-               @Override
-                public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                final int Hour = currentTime.get(Calendar.HOUR_OF_DAY);
+                final int Minute = currentTime.get(Calendar.MINUTE);
+                final TimePickerDialog  timePickerDialog = new TimePickerDialog(ParkingStructure.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        Calendar temp=Calendar.getInstance();
+                        temp.set(Calendar.HOUR_OF_DAY,hour);
+                        temp.set(Calendar.MINUTE,minute);
+
+                       //validate time
+                        if (temp.before(GregorianCalendar.getInstance())){
+                            Toast.makeText(ParkingStructure.this, "Cannot select previous time", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                        String m = "";
+                        if (minute < 10)
+                            m = "0" + minute;
+                        else
+                            m = String.valueOf(minute);
+                        String am_pm;
+                        if(hour<12){
+                            am_pm = "AM";
+                            mDisplayTime.setText(hour+":"+m+" "+am_pm);
+
+                        }else if (hour==12){
+                            am_pm="PM";
+                            mDisplayTime.setText(hour+":"+m+" "+am_pm);
+
+                        }else {
+                            am_pm="PM";
+                            mDisplayTime.setText(hour+":"+m+" "+am_pm);
+                        }
+                        storetime = hour +":" +minute+":"+"00";
+                    }
+                    }
+                },Hour,Minute ,true);
+                timePickerDialog.show();
+            }
+        });
 
                  //set minT( it will update to the current time
                /**    if(hour<Hour){
@@ -113,30 +148,7 @@ public class ParkingStructure extends AppCompatActivity {
                        minute =Minute;
                    } **/
 
-                   String m = "";
-                   if (minute < 10)
-                       m = "0" + minute;
-                   else
-                       m = String.valueOf(minute);
-                   String am_pm;
-            if(hour<12){
-                am_pm = "AM";
-                mDisplayTime.setText(hour+":"+m+" "+am_pm);
 
-            }else if (hour==12){
-                am_pm="PM";
-                mDisplayTime.setText(hour+":"+m+" "+am_pm);
-
-            }else {
-                am_pm="PM";
-                mDisplayTime.setText(hour+":"+m+" "+am_pm);
-            }
-                    storetime = hour +":" +minute+":"+"00";
-           }
-            },Hour,Minute ,true);
-          timePickerDialog.show();
-            }
-                });
 
 
 

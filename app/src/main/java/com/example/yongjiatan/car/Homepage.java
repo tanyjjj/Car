@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
@@ -21,6 +22,7 @@ public class Homepage extends AppCompatActivity {
     String timeout;
     TextView Text;
     AlertDialog alertDialog;
+    ImageView ImageCheckIn;
     final Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,8 @@ public class Homepage extends AppCompatActivity {
         userid = getIntent().getExtras().getString("userid");
         checkin = getIntent().getExtras().getString("checkin");
         parkingspot = getIntent().getExtras().getString("parkingspot");
-
+        Text = (TextView) findViewById(R.id.checkoutText);
+        ImageCheckIn=(ImageView)findViewById(R.id.checkinImage);
         final TextView scan = (TextView) findViewById(R.id.scanText);
         final Activity activity = this;
         scan.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +49,10 @@ public class Homepage extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
-
+        if(checkin==null){
+            Text.setVisibility(View.INVISIBLE);
+           ImageCheckIn.setVisibility(View.INVISIBLE);
+        }
     }
 
 
@@ -96,20 +102,10 @@ public class Homepage extends AppCompatActivity {
     }
     public void JumptoCheckOut(View view) {
 
-        Text = (TextView) findViewById(R.id.checkoutText);
         Text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (checkin==null) {
-                    AlertDialog.Builder alertDialog= new AlertDialog.Builder(
-                            context);
-                    alertDialog.setTitle("Notice!");
-                    alertDialog.setMessage("Please Check-In");
-                    AlertDialog alertDialogB = alertDialog.create();
-
-                    alertDialogB.show();
-                } else {
                     calender = Calendar.getInstance();
                     simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                     timeout = simpleDateFormat.format(calender.getTime());
@@ -121,7 +117,7 @@ public class Homepage extends AppCompatActivity {
                     goToCheckOut.putExtra("parkingspot", parkingspot);
                     goToCheckOut.putExtra("userid", userid);
                     startActivity(goToCheckOut);
-                }
+
             }
         });
     }

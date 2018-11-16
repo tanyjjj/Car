@@ -48,8 +48,8 @@ ImageView viewR,manageU,modifyS;
         modifyS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToView = new Intent(AdminHomepage.this, AdminView.class);
-                startActivity(goToView);
+             //   Intent goToView = new Intent(AdminHomepage.this, AdminView.class);
+             //   startActivity(goToView);
             }
         });
     }
