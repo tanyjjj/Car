@@ -12,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -19,7 +22,7 @@ public class Homepage extends AppCompatActivity {
     String userid,rid,time,checkin,parkingspot;
     Calendar calender;
     SimpleDateFormat simpleDateFormat;
-    String timeout;
+    String timeout,date,currentdate;
     TextView Text;
     AlertDialog alertDialog;
     ImageView ImageCheckIn;
@@ -31,8 +34,10 @@ public class Homepage extends AppCompatActivity {
         rid = getIntent().getExtras().getString("rid");
         time = getIntent().getExtras().getString("time");
         userid = getIntent().getExtras().getString("userid");
+        date = getIntent().getExtras().getString("date");
         checkin = getIntent().getExtras().getString("checkin");
         parkingspot = getIntent().getExtras().getString("parkingspot");
+
         Text = (TextView) findViewById(R.id.checkoutText);
         ImageCheckIn=(ImageView)findViewById(R.id.checkinImage);
         final TextView scan = (TextView) findViewById(R.id.scanText);
@@ -53,6 +58,11 @@ public class Homepage extends AppCompatActivity {
             Text.setVisibility(View.INVISIBLE);
            ImageCheckIn.setVisibility(View.INVISIBLE);
         }
+
+        calender = Calendar.getInstance();
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      currentdate = simpleDateFormat.format(calender.getTime());
+
     }
 
 
@@ -88,11 +98,19 @@ public class Homepage extends AppCompatActivity {
             alertDialog.setTitle("Notice!");
             alertDialog.setMessage("Please reserve your parking spot");
             AlertDialog alertDialogB = alertDialog.create();
-
             alertDialogB.show();
-        } else {
+        }if(date.equals(currentdate)){
             BackgroundQRCode backgroundWorker = new BackgroundQRCode(this);
             backgroundWorker.execute(rid,time,parkingspot,userid);
+        }
+        else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                    context);
+            alertDialog.setTitle("Notice!");
+            alertDialog.setMessage("Your reservation on "+date);
+            AlertDialog alertDialogB = alertDialog.create();
+            alertDialogB.show();
+
         }
     }
 

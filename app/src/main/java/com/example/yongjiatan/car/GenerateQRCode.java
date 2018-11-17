@@ -1,16 +1,14 @@
 package com.example.yongjiatan.car;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,10 +24,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -41,7 +35,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class GenerateQRCode extends AppCompatActivity {
@@ -64,6 +57,8 @@ public class GenerateQRCode extends AppCompatActivity {
         time = getIntent().getExtras().getString("time");
         data =getIntent().getExtras().getString("data");
         parkingspot = getIntent().getExtras().getString("parkingspot");
+        TextView txt = (TextView) findViewById(R.id.tc);
+        txt.setPaintFlags(txt.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         Button cancel_btn = (Button) findViewById(R.id.cancelBtn);
         cancel_btn.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +153,8 @@ public class GenerateQRCode extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    if (currenttime.before(newReserveTime)) {
+                 //   if (currenttime.before(newReserveTime)) {
+                    if (currenttime.equals(newReserveTime)) {
                         BackgroundRun runner = new BackgroundRun();
                         runner.execute(checkin, rid,userid);
                     } else if (currenttime.after(reservetime)) {
@@ -171,7 +167,11 @@ public class GenerateQRCode extends AppCompatActivity {
         });
 
     }
+    public void JumpToTutorial(View view) {
 
+        Intent goToTutorial = new Intent(this, Qrcodetutorial.class);
+        startActivity(goToTutorial);
+    }
     public void generateQR(String result) {
 
       MultiFormatWriter multiFormatWriter = new MultiFormatWriter();

@@ -18,7 +18,7 @@ import java.net.URLEncoder;
 
 public class BackgroundUpdateSpot extends AsyncTask<String,Void,String> {
         Context context;
-        String rid,time,userid,parkingspot;
+        String rid,time,userid,parkingspot,date;
         BackgroundUpdateSpot(Context ctx) {
         context = ctx;
         }
@@ -28,6 +28,7 @@ protected String doInBackground(String... params) {
    time= params[1];
    userid= params[2];
    parkingspot= params[3];
+   date=params[4];
         String updatespot_url = "http://192.168.137.1/updateSpotusingRid.php";
         try {
         //Create a URL object holding our url
@@ -66,14 +67,20 @@ protected String doInBackground(String... params) {
 
 @Override
 protected void onPostExecute(String result) {
-
-    Intent intent = new Intent (context,Homepage.class);
+    Intent intent=new Intent(context,IService.class);
+   intent.putExtra("rid", rid);
+    intent.putExtra("time", time);
+   intent.putExtra("userid", userid);
+   intent.putExtra("parkingspot", parkingspot);
+    intent.putExtra("date", date);
+    context.startService(intent);
+   /** Intent intent = new Intent (context,Homepage.class);
     intent.putExtra("rid", rid);
     intent.putExtra("time", time);
     intent.putExtra("userid", userid);
     intent.putExtra("parkingspot", parkingspot);
-
-    context.startActivity(intent);
+    intent.putExtra("date", date);
+    context.startActivity(intent); **/
 
 
         }

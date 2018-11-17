@@ -134,7 +134,7 @@ int selectedHour,selectedMinute;
                             am_pm="PM";
                             mDisplayTime.setText(hour+":"+m+" "+am_pm);
                         }
-                        storetime = hour +":" +minute+":"+"00";
+                        storetime = hour +":" +m+":"+"00";
                     }
                     }
                 },Hour,Minute ,true);

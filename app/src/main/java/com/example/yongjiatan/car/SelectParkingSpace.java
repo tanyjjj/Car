@@ -17,7 +17,7 @@ public class SelectParkingSpace extends AppCompatActivity {
     Button carparkL101,carparkL102,carparkL103;
     String parking101,parking102;
 
-    String time,userid;
+    String time,userid,date;
 
     String TEXT1,TEXT2,TEXT3;
     ArrayList<String> resultArray;
@@ -28,6 +28,7 @@ public class SelectParkingSpace extends AppCompatActivity {
         setContentView(R.layout.activity_select_parking_space);
         userid = getIntent().getExtras().getString("userid");
         time = getIntent().getExtras().getString("time");
+        date = getIntent().getExtras().getString("date");
     resultArray=  getIntent().getStringArrayListExtra("parking");
 
 
@@ -50,7 +51,7 @@ public class SelectParkingSpace extends AppCompatActivity {
 
                         TEXT1 = "L1-01";
                         BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                        Worker.execute(TEXT1, userid, time);
+                        Worker.execute(TEXT1, userid, time,date);
                         Toast.makeText(getApplicationContext(), "L1-01 has been reserved..", Toast.LENGTH_SHORT).show();
                         carparkL101.setEnabled(false);
                     }
@@ -70,7 +71,7 @@ public class SelectParkingSpace extends AppCompatActivity {
                     public void onClick(View v) {
                         TEXT2 = "L1-02";
                         BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                        Worker.execute(TEXT2, userid, time);
+                        Worker.execute(TEXT2, userid, time,date);
                         Toast.makeText(getApplicationContext(), "L1-02 has been reserved..", Toast.LENGTH_SHORT).show();
                         carparkL102.setEnabled(false);
                     }
@@ -90,7 +91,7 @@ public class SelectParkingSpace extends AppCompatActivity {
                     public void onClick(View v) {
                         TEXT3 = "L1-03";
                         BackgroundParkingSpot Worker = new BackgroundParkingSpot(SelectParkingSpace.this);
-                        Worker.execute(TEXT3, userid, time);
+                        Worker.execute(TEXT3, userid, time,date);
                         Toast.makeText(getApplicationContext(), "L1-03 has been reserved..", Toast.LENGTH_SHORT).show();
                         carparkL103.setEnabled(false);
                     }
@@ -107,6 +108,7 @@ public class SelectParkingSpace extends AppCompatActivity {
              Intent intent = new Intent(getApplicationContext(),SelectParkingSpaceSecond.class);
            intent.putExtra("time", time);
              intent.putExtra("userid",userid);
+                intent.putExtra("date",date);
             intent.putStringArrayListExtra("parking",resultArray);
                 startActivity(intent);
             }

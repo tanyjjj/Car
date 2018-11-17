@@ -7,27 +7,29 @@
     tools:context=".GenerateQRCode">
 
     <TextView
-        android:layout_width="272dp"
-        android:layout_height="42dp"
-        android:layout_above="@+id/display"
+        android:layout_width="331dp"
+        android:layout_height="26dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="86dp"
-        android:layout_marginLeft="86dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginBottom="-1dp"
-        android:text="   QR Code Generator"
-        android:textSize="22sp" />
+        android:layout_marginStart="29dp"
+        android:layout_marginLeft="29dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="Generate Own QR Code to access car park"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/gen_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
+        android:layout_marginEnd="-242dp"
+        android:layout_toStartOf="@+id/checkin_Btn"
         android:text="GENERATE" />
     <View
         android:layout_width="match_parent"
@@ -52,11 +54,14 @@
 
     <TextView
         android:id="@+id/display"
-        android:layout_width="280dp"
-        android:layout_height="60dp"
-        android:layout_above="@+id/gen_btn"
+        android:layout_width="244dp"
+        android:layout_height="84dp"
 
-        android:layout_marginBottom="-100dp"
+        android:layout_alignTop="@+id/tc"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:text="Reservation Details:" />
 
     <Button
@@ -87,5 +92,20 @@
         android:layout_marginLeft="23dp"
         android:layout_marginBottom="0dp"
         android:text="Cancel Reservation" />
+
+    <TextView
+        android:id="@+id/tc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:onClick="JumpToTutorial"
+        android:text="Tutorial"
+        android:textAllCaps="true"
+        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
 </RelativeLayout>

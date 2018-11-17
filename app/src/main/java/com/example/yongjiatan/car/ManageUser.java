@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,7 @@ import java.net.URLEncoder;
 public class ManageUser extends AppCompatActivity {
 EditText searchID;
 TextView getUserID,getPassword,getName,getContactNo,getDOB,getEmail;
-Button go;
+ImageView go;
 String userid,type;
     String u,p, n, cn, d, e;
     @Override
@@ -45,7 +46,7 @@ String userid,type;
         getDOB= (TextView)findViewById(R.id.getDOB);
         getEmail= (TextView)findViewById(R.id.getE);
 
-       go=(Button)findViewById(R.id.goBtn);
+       go=(ImageView)findViewById(R.id.goBtn);
 
     }
     public void OnGo(View view) {

@@ -26,7 +26,7 @@ public class BackgroundParkingSpot extends AsyncTask<String,Void,String> {
     AlertDialog alertDialog;
         Context context;
 
-        String parkingspot,time,userid;
+        String parkingspot,time,userid,date;
         BackgroundParkingSpot (Context ctx) {
             context = ctx;
         }
@@ -35,6 +35,7 @@ public class BackgroundParkingSpot extends AsyncTask<String,Void,String> {
            parkingspot = params[0];
           userid= params[1];
            time = params[2];
+           date = params[3];
             String parkingspot_url = "http://192.168.137.1/parkingspot.php";
 
             try {
@@ -85,7 +86,7 @@ public class BackgroundParkingSpot extends AsyncTask<String,Void,String> {
             super.onPostExecute(result);
 
             BackgroundUpdateSpot Worker = new BackgroundUpdateSpot(context);
-            Worker.execute(result,time,userid,parkingspot);
+            Worker.execute(result,time,userid,parkingspot,date);
 
         }
 

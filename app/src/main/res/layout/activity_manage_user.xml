@@ -36,8 +36,8 @@
         android:layout_marginStart="27dp"
         android:layout_marginLeft="27dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
         android:ems="10"
         android:hint="Enter User ID:"
         android:inputType="textPersonName"
@@ -57,24 +57,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBtn" />
-
-    <Button
-        android:id="@+id/goBtn"
-        android:layout_width="67dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginRight="38dp"
-        android:layout_marginBottom="348dp"
-        android:background="@color/colorPrimaryDark"
-        android:onClick="OnGo"
-        android:text="Go!"
-        android:textColor="@color/cast_libraries_material_featurehighlight_text_body_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/deleteBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/getP"
@@ -140,5 +122,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getDOB" />
+
+    <ImageView
+        android:id="@+id/goBtn"
+        android:layout_width="55dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="324dp"
+        android:onClick="OnGo"
+        app:layout_constraintBottom_toTopOf="@+id/deleteBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/search" />
 
 </android.support.constraint.ConstraintLayout>

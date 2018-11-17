@@ -56,7 +56,12 @@
         <activity android:name=".AdminHomepage" />
         <activity android:name=".AdminView" />
         <activity android:name=".ManageUser" />
-        <activity android:name=".AdminModifyStatus"></activity>
+        <activity android:name=".AdminModifyStatus" />
+
+        <service android:name=".IService" />
+
+        <activity android:name=".Qrcodetutorial" />
+        <activity android:name=".TermAndCondition"></activity>
     </application>
 
 </manifest>

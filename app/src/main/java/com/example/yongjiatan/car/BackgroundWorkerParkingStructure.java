@@ -35,7 +35,7 @@ import javax.xml.transform.Result;
 public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
-    String time,userid;
+    String time,userid,date;
     String parking101,parking102,parking103;
     String[] array;
     ArrayList<String> list;
@@ -48,7 +48,7 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
     protected String doInBackground(String... params) {
         String text = params[0];
         time = params[1];
-        String date = params[2];
+        date = params[2];
         userid = params[3];
 
         String checkstatus_url = "http://192.168.137.1/checkparkingstatus.php";
@@ -120,6 +120,7 @@ public class BackgroundWorkerParkingStructure extends AsyncTask<String,Void,Stri
        Intent intent = new Intent (context, SelectParkingSpace.class);
         intent.putExtra("time", time);
         intent.putExtra("userid",userid);
+        intent.putExtra("date",date);
         intent.putStringArrayListExtra("parking",list);
         context.startActivity(intent);
 

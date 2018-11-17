@@ -26,6 +26,7 @@ public class Login extends AppCompatActivity implements TextWatcher,CompoundButt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         useridLogin = (EditText) findViewById(R.id.login_userid);
